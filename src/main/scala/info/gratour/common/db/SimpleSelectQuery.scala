@@ -1,8 +1,5 @@
 package info.gratour.common.db
 
-import info.gratour.common.Errors
-import info.gratour.common.lang.{ErrorWithCode, InvalidParamException}
-
 class SimpleSelectQuery(sql: String) {
 
   private val str = new StringBuilder(sql)

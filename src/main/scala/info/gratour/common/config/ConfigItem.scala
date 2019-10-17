@@ -22,8 +22,12 @@ abstract class ConfigItem[T](
   protected def fromString(value: String): T = ???
 
   def init(): Unit = {
-    val actualConfig =
-      if (config.hasPath(configPath)) config.getConfig(configPath) else null
+    val actualConfig = {
+      if (config != null) {
+        if (config.hasPath(configPath)) config.getConfig(configPath) else null
+      } else
+        null
+    }
 
     if (actualConfig != null && actualConfig.hasPath(name)) {
       value = fromString(actualConfig.getString(name))

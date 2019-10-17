@@ -61,7 +61,14 @@ public class Errors {
     public static final int UNSUPPORTED_TYPE = -14;
     public static final String MESSAGE_KEY_UNSUPPORTED_TYPE = "errors.unsupported_type";
 
+    public static final int VCODE_EXPIRED = -15;
+    public static final String MESSAGE_KEY_VCODE_EXPIRED = "errors.vcode_expired";
 
+    public static final int INVALID_VCODE = -16;
+    public static final String MESSAGE_KEY_INVALID_VCODE = "errors.invalid_vcode";
+
+    public static final int DATA_MISMATCH = -17;
+    public static final String MESSAGE_KEY_DATA_MISMATCH_FMT = "errors.data_mismatch_fmt";
 
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
@@ -151,7 +158,14 @@ public class Errors {
             case UNSUPPORTED_TYPE:
                 return MESSAGE_KEY_UNSUPPORTED_TYPE;
 
+            case VCODE_EXPIRED:
+                return MESSAGE_KEY_VCODE_EXPIRED;
 
+            case INVALID_VCODE:
+                return MESSAGE_KEY_INVALID_VCODE;
+
+            case DATA_MISMATCH:
+                return MESSAGE_KEY_DATA_MISMATCH_FMT;
 
 
             // service error

@@ -2,7 +2,7 @@ package info.gratour.common.utils
 
 import org.junit.{Assert, Test}
 
-class StringUtilsTest {
+class StringCommonUtilsTest {
 
   @Test
   def testArrayToString(): Unit = {

@@ -1,22 +1,12 @@
 package info.gratour.common.utils
 
-import java.io.File
+import java.io._
 import java.net.URL
-import java.time.{ZoneId, ZoneOffset}
+import java.util.function.Consumer
 
 import org.apache.commons.io.FilenameUtils
 
-import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Success, Try}
-
-object Utils {
-
-  def futureToTry[T](f: Future[T])(implicit ec: ExecutionContext): Future[Try[T]] =
-    f.map(Success(_))
-      .recover {
-        case e: Throwable => Failure(e)
-      }
-
+object FsIoUtils {
 
   def appendPathSeparator(path: String): String = {
     if (path == null || path.length == 0)
@@ -57,6 +47,8 @@ object Utils {
         extURL = extURL.substring(4, extURL.lastIndexOf("/"))
     }
 
+    url = new URL(extURL);
+
     try {
       new File(url.toURI)
     } catch {
@@ -73,34 +65,25 @@ object Utils {
     FilenameUtils.normalize(appendPathSeparator(pathString))
   }
 
-  /**
-    * Get ZoneId of specified id string.
-    *
-    * @return null if zoneId not found or invalid.
-    */
-  def zoneIdOf(zoneId: String): ZoneId = {
-    if (zoneId == null || zoneId.isEmpty)
-      return null
 
+
+  /**
+    * 读取流中的字符串并按行调用 lineConsumer，完成后关闭 inputStream
+    *
+    * @param inputStream  输入流，方法调用后流将被关闭
+    * @param lineConsumer 字符串行的消费者
+    */
+  def readLinesAndClose(inputStream: InputStream, lineConsumer: Consumer[String]): Unit = {
     try {
-      ZoneId.of(zoneId)
-    } catch {
-      case _: Exception =>
-        null
+      val reader = new BufferedReader(new InputStreamReader(inputStream))
+      try
+        reader.lines.forEach(lineConsumer)
+      catch {
+        case e: IOException =>
+          e.printStackTrace()
+          throw new RuntimeException(e)
+      } finally if (reader != null) reader.close()
     }
   }
 
-  /**
-    * Get ZoneId of specified zone offset(by minutes).
-    *
-    * @return null if offset out of range.
-    */
-  def zoneIdOfOffset(zoneOffsetMinutes: Int): ZoneId = {
-    try {
-      ZoneOffset.ofTotalSeconds(zoneOffsetMinutes * 60)
-    } catch {
-      case _: Exception =>
-        null
-    }
-  }
 }

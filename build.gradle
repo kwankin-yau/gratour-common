@@ -9,7 +9,8 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
-//compileJava.options.encoding = 'UTF-8'
+compileJava.options.encoding = 'UTF-8'
+compileScala.options.encoding = 'UTF-8'
 
 //sourceSets.main.scala.srcDir "src/main/java"
 //sourceSets.main.java.srcDirs = []
