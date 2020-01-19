@@ -1,6 +1,7 @@
 package info.gratour.common.lang;
 
-import info.gratour.common.Errors;
+import info.gratour.common.error.ErrorWithCode;
+import info.gratour.common.error.Errors;
 
 public class InvalidParamException extends ErrorWithCode {
 

@@ -173,7 +173,7 @@ class SimpleSelectQuery(sql: String) {
           $orderBy
           $page
         ) sub
-        RIGHT JOIN (SELECT count(1) FROM cte) c(_total_row_count_) ON true
+        RIGHT JOIN (SELECT count(1) FROM cte) c(_rc_) ON true
         """
     //    } else
     //      main + where + orderBy + page

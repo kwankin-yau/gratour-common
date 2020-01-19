@@ -1,4 +1,4 @@
-package info.gratour.common;
+package info.gratour.common.error;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -70,6 +70,9 @@ public class Errors {
     public static final int DATA_MISMATCH = -17;
     public static final String MESSAGE_KEY_DATA_MISMATCH_FMT = "errors.data_mismatch_fmt";
 
+    public static final int NOT_AUTHENTICATED = -18;
+    public static final String MESSAGE_KEY_NOT_AUTHENTICATED = "errors.not_authenticated";
+
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
     public static final String MESSAGE_KEY_SERVICE_ALREADY_STARTED = "errors.serv_already_started";
@@ -103,6 +106,13 @@ public class Errors {
     public static final int EOF = -203;
     public static final String MESSAGE_KEY_EOF = "errors.eof";
     public static final String EOF_MESSAGE = "End of file.";
+
+    public static final int DUPLICATED_VALUE = -204;
+    public static final String MESSAGE_KEY_DUPLICATED_VALUE = "errors.duplicated_value";
+
+    public static final int INVALID_VALUE = -205;
+    public static final String MESSAGE_KEY_INVALID_VALUE = "errors.invalid_value";
+    public static final String MESSAGE_KEY_INVALID_VALUE_FMT = "errors.invalid_value_fmt";
 
 
     public static String messageKey(int errorCode) {
@@ -167,6 +177,8 @@ public class Errors {
             case DATA_MISMATCH:
                 return MESSAGE_KEY_DATA_MISMATCH_FMT;
 
+            case NOT_AUTHENTICATED:
+                return MESSAGE_KEY_NOT_AUTHENTICATED;
 
             // service error
             case SERVICE_ALREADY_STARTED:
@@ -201,8 +213,31 @@ public class Errors {
             case EOF:
                 return MESSAGE_KEY_EOF;
 
+            case DUPLICATED_VALUE:
+                return MESSAGE_KEY_DUPLICATED_VALUE;
+
+            case INVALID_VALUE:
+                return MESSAGE_KEY_INVALID_VALUE;
+
             default:
                 return null;
+        }
+    }
+
+    public static String messageFormatKey(int errorCode) {
+        switch (errorCode) {
+            case INVALID_PARAM:
+                return MESSAGE_KEY_INVALID_PARAM_FMT;
+
+
+            case DATA_MISMATCH:
+                return MESSAGE_KEY_DATA_MISMATCH_FMT;
+
+            case INVALID_VALUE:
+                return MESSAGE_KEY_INVALID_VALUE_FMT;
+
+            default:
+                return messageKey(errorCode);
         }
     }
 
@@ -224,4 +259,11 @@ public class Errors {
         return String.format(BUNDLE.getString(messageKey), arg);
     }
 
+    public static String errorMessageFormat(int errorCode, String arg) {
+        String messageKey = messageFormatKey(errorCode);
+        if (messageKey == null)
+            return "Unknown error.";
+
+        return String.format(BUNDLE.getString(messageKey), arg);
+    }
 }
