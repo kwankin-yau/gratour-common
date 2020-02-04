@@ -1,4 +1,4 @@
-package info.gratour.common.lang
+package info.gratour.common.types
 
 class Flag {
 

@@ -66,24 +66,23 @@ object FsIoUtils {
   }
 
 
-
   /**
-    * 读取流中的字符串并按行调用 lineConsumer，完成后关闭 inputStream
-    *
-    * @param inputStream  输入流，方法调用后流将被关闭
-    * @param lineConsumer 字符串行的消费者
-    */
+   * 读取流中的字符串并按行调用 lineConsumer，完成后关闭 inputStream
+   *
+   * @param inputStream  输入流，方法调用后流将被关闭
+   * @param lineConsumer 字符串行的消费者
+   */
   def readLinesAndClose(inputStream: InputStream, lineConsumer: Consumer[String]): Unit = {
-    try {
-      val reader = new BufferedReader(new InputStreamReader(inputStream))
-      try
-        reader.lines.forEach(lineConsumer)
-      catch {
-        case e: IOException =>
-          e.printStackTrace()
-          throw new RuntimeException(e)
-      } finally if (reader != null) reader.close()
+    val reader = new BufferedReader(new InputStreamReader(inputStream))
+    try
+      reader.lines.forEach(lineConsumer)
+    catch {
+      case e: IOException =>
+        e.printStackTrace()
+        throw new RuntimeException(e)
     }
+    finally if (reader != null) reader.close()
+
   }
 
 }

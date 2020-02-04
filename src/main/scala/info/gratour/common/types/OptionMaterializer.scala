@@ -1,4 +1,4 @@
-package info.gratour.common.rest
+package info.gratour.common.types
 
 import java.lang.reflect.{ParameterizedType, Type}
 

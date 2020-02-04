@@ -4,7 +4,7 @@ import java.time.{LocalDate, LocalDateTime}
 
 import info.gratour.common.db.schema.{FieldDataType, Predication}
 import info.gratour.common.error.ErrorWithCode
-import info.gratour.common.rest.LocalDateTimeMaterializer
+import info.gratour.common.types.LocalDateTimeMaterializer
 import org.junit.Test
 import org.junit.Assert._
 

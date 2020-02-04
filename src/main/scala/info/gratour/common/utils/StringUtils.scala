@@ -1,12 +1,9 @@
 package info.gratour.common.utils
 
-import java.time.{LocalDate, LocalDateTime, OffsetDateTime}
-import java.time.format.{DateTimeFormatter, DateTimeParseException}
-
 import java.lang.{Boolean => JBoolean, Double => JDouble, Float => JFloat, Integer => JInteger, Long => JLong, Short => JShort}
 import java.math.{BigDecimal => JDecimal}
-
-import info.gratour.common.Consts
+import java.time.format.{DateTimeFormatter, DateTimeParseException}
+import java.time.{LocalDate, LocalDateTime, OffsetDateTime}
 
 object StringUtils {
 
@@ -128,5 +125,42 @@ object StringUtils {
     str.toString
   }
 
+  def hex(s: String): Array[Byte] = {
+    val l = s.length
+    if (l % 2 != 0)
+      throw new RuntimeException(s"Invalid hexadecimal string `$s`.")
 
+    var r = new Array[Byte](s.length)
+    var index = 0
+    var h: Boolean = true
+    var b: Byte = 0
+
+    def put(digit: Int): Unit = {
+      if (h) {
+        b = (digit << 4).toByte
+        h = false
+      } else {
+        b = (b | digit).toByte
+        r(index) = b
+        index = index + 1
+        h = true
+      }
+    }
+
+    s.foreach {
+      case x if x >= '0' && x <= '9' =>
+        put(x - '0')
+
+      case x if x >= 'a' && x <= 'f' =>
+        put(x - 'a' + 10)
+
+      case x if x >= 'A' && x <= 'F' =>
+        put(x - 'A' + 10)
+
+      case _ =>
+        throw new RuntimeException(s"Invalid hexadecimal string `$s`.")
+    }
+
+    r
+  }
 }

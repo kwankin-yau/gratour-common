@@ -2,7 +2,7 @@ package info.gratour.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import info.gratour.common.rest.*;
+import info.gratour.common.types.*;
 import scala.Option;
 
 import java.time.*;
@@ -18,7 +18,7 @@ public class Consts {
                 .registerTypeHierarchyAdapter(OffsetDateTime.class, new OffsetDateTimeMaterializer())
                 .registerTypeHierarchyAdapter(ZoneId.class, new ZoneIdMaterializer())
                 .registerTypeHierarchyAdapter(Option.class, new OptionMaterializer())
-                .registerTypeHierarchyAdapter(byte[].class, new ByteArrayMaterializer())
+                .registerTypeHierarchyAdapter(byte[].class, new ByteArrayBase64Materializer())
                 ;
 
     }
