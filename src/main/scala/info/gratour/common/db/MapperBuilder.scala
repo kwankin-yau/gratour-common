@@ -1,23 +1,18 @@
 package info.gratour.common.db
 
 import java.lang.reflect.{Field, Modifier}
-import java.sql.Types
-import java.util.concurrent.ConcurrentHashMap
 
 import info.gratour.common.db.schema.FieldNameMapper
 import info.gratour.common.error.ErrorWithCode
 import info.gratour.common.lang.Reflections
-import info.gratour.common.utils.{CommonUtils, StringUtils}
-import net.sf.jsqlparser.parser.{CCJSqlParser, CCJSqlParserUtil}
+import info.gratour.common.utils.CommonUtils
+import net.sf.jsqlparser.parser.CCJSqlParserUtil
 import net.sf.jsqlparser.schema.{Column, Table}
-import net.sf.jsqlparser.statement.Statement
-import net.sf.jsqlparser.statement.select.{AllColumns, AllTableColumns, PlainSelect, Select, SelectExpressionItem}
+import net.sf.jsqlparser.statement.select.{PlainSelect, Select, SelectExpressionItem}
 import scalikejdbc.{AutoSession, DBSession, WrappedResultSet}
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
-import scala.collection.parallel.immutable
-import scala.reflect.ClassTag
 
 
 object MapperBuilder {
