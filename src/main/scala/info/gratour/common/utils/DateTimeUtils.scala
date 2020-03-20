@@ -1,6 +1,9 @@
 package info.gratour.common.utils
 
-import java.time.{ZoneId, ZoneOffset}
+import java.time.format.DateTimeFormatter
+import java.time.{LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
+
+import info.gratour.common.types.EpochMillis
 
 object DateTimeUtils {
 
@@ -35,5 +38,9 @@ object DateTimeUtils {
     }
   }
 
+  val CONVENIENT_DATETIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+  val CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+  val FILE_NAME_DATETIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
 
+  def dateTimeToFileName(dt: LocalDateTime): String = dt.format(FILE_NAME_DATETIME_FORMATTER)
 }

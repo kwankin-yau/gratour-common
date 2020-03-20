@@ -1,5 +1,7 @@
 package info.gratour.common.error;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -73,6 +75,9 @@ public class Errors {
     public static final int NOT_AUTHENTICATED = -18;
     public static final String MESSAGE_KEY_NOT_AUTHENTICATED = "errors.not_authenticated";
 
+    public static final int NOT_ENOUGH_PRIV = -19;
+    public static final String MESSAGE_KEY_NOT_ENOUGH_PRIV = "errors.not_enough_priv";
+
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
     public static final String MESSAGE_KEY_SERVICE_ALREADY_STARTED = "errors.serv_already_started";
@@ -89,6 +94,12 @@ public class Errors {
     public static final int SERVICE_IS_STOPPED = -103;
     public static final String MESSAGE_KEY_SERVICE_IS_STOPPED = "errors.serv_is_stopped";
     public static final String SERVICE_IS_STOPPED_MESSAGE = "Service is stopped.";
+
+    public static final int HTTP_METHOD_NOT_SUPPORT = -104;
+    public static final String MESSAGE_KEY_HTTP_METHOD_NOT_SUPPORT = "errors.http_method_not_support";
+
+    public static final int MISSING_REQUEST_PARAM = -105;
+    public static final String MESSAGE_KEY_MISSING_REQUEST_PARAM = "errors.missing_request_param";
 
     // script errors
     public static final int BAD_FORMAT = -200;
@@ -113,6 +124,9 @@ public class Errors {
     public static final int INVALID_VALUE = -205;
     public static final String MESSAGE_KEY_INVALID_VALUE = "errors.invalid_value";
     public static final String MESSAGE_KEY_INVALID_VALUE_FMT = "errors.invalid_value_fmt";
+
+    public static final int FOREIGN_KEY_VIOLATION = -206;
+    public static final String MESSAGE_KEY_FOREIGN_KEY_VIOLATION = "errors.foreign_key_violation";
 
 
     public static String messageKey(int errorCode) {
@@ -180,6 +194,9 @@ public class Errors {
             case NOT_AUTHENTICATED:
                 return MESSAGE_KEY_NOT_AUTHENTICATED;
 
+            case NOT_ENOUGH_PRIV:
+                return MESSAGE_KEY_NOT_ENOUGH_PRIV;
+
             // service error
             case SERVICE_ALREADY_STARTED:
                 return MESSAGE_KEY_SERVICE_ALREADY_STARTED;
@@ -196,6 +213,11 @@ public class Errors {
             case SERVICE_IS_STOPPED:
                 return MESSAGE_KEY_SERVICE_IS_STOPPED;
 
+            case HTTP_METHOD_NOT_SUPPORT:
+                return MESSAGE_KEY_HTTP_METHOD_NOT_SUPPORT;
+
+            case MISSING_REQUEST_PARAM:
+                return MESSAGE_KEY_MISSING_REQUEST_PARAM;
 
             // script errors
             case BAD_FORMAT:
@@ -219,6 +241,9 @@ public class Errors {
             case INVALID_VALUE:
                 return MESSAGE_KEY_INVALID_VALUE;
 
+            case FOREIGN_KEY_VIOLATION:
+                return MESSAGE_KEY_FOREIGN_KEY_VIOLATION;
+
             default:
                 return null;
         }
@@ -241,7 +266,8 @@ public class Errors {
         }
     }
 
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("messages", Locale.getDefault());
+    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("info.gratour.common.messages", Locale.getDefault(), Errors.class.getClassLoader());
+
 
     public static String errorMessage(int errorCode) {
         String key = messageKey(errorCode);

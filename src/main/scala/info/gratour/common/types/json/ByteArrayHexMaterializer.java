@@ -5,7 +5,7 @@
  *  Contributors:
  *     KwanKin Yau (alphax@vip.163.com) - initial API and implementation
  *******************************************************************************/
-package info.gratour.common.types;
+package info.gratour.common.types.json;
 
 import com.google.gson.*;
 import info.gratour.common.utils.StringUtils;

@@ -36,9 +36,17 @@ public class ErrorWithCode extends RuntimeException {
     public static ErrorWithCode INTERNAL_ERROR = new ErrorWithCode(Errors.INTERNAL_ERROR);
     public static ErrorWithCode AUTHENTICATION_FAILED = new ErrorWithCode(Errors.AUTHENTICATION_FAILED);
     public static ErrorWithCode NOT_AUTHENTICATED = new ErrorWithCode(Errors.NOT_AUTHENTICATED);
+    public static ErrorWithCode ACCESS_DENIED = new ErrorWithCode(Errors.ACCESS_DENIED);
+    public static ErrorWithCode NOT_ENOUGH_PRIV = new ErrorWithCode(Errors.NOT_ENOUGH_PRIV);
+    public static ErrorWithCode RECORD_NOT_FOUND = new ErrorWithCode(Errors.RECORD_NOT_FOUND);
 
     public static ErrorWithCode invalidParam(String paramName) {
         return new ErrorWithCode(Errors.INVALID_PARAM, Errors.errorMessageFormat(Errors.INVALID_PARAM, paramName));
+    }
+
+    public static ErrorWithCode invalidParam(String paramName, String reason) {
+        String message = Errors.errorMessageFormat(Errors.INVALID_PARAM, paramName) + " " + reason;
+        return new ErrorWithCode(Errors.INVALID_PARAM, message);
     }
 
     public static ErrorWithCode invalidValue(String fieldName) {

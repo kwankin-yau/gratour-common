@@ -1,4 +1,4 @@
-package info.gratour.common.types;
+package info.gratour.common.types.json;
 
 import com.google.gson.*;
 

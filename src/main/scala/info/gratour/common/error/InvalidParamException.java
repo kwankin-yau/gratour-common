@@ -1,4 +1,4 @@
-package info.gratour.common.types;
+package info.gratour.common.error;
 
 import info.gratour.common.error.ErrorWithCode;
 import info.gratour.common.error.Errors;

@@ -62,16 +62,15 @@ object CommonUtils {
   }
 
 
-
   /**
-    * zh-CN => (zh, CN)
-    * zh_CN => (zh, CN)
-    * en-US => (en, US)
-    * en => (en, US)    -- default
-    *
-    * @param languageTag
-    * @return null if parse failed
-    */
+   * zh-CN => (zh, CN)
+   * zh_CN => (zh, CN)
+   * en-US => (en, US)
+   * en => (en, US)    -- default
+   *
+   * @param languageTag
+   * @return null if parse failed
+   */
   def parseLanguageTag(languageTag: String): LangTag = {
     if (languageTag == null)
       return null
@@ -103,6 +102,43 @@ object CommonUtils {
     val r = ArrayBuffer.empty[Field]
     internalGetFields(clzz, r)
     r
+  }
+
+  def stringCompare(a: String, b: String): Int = {
+    if (a != null) {
+      if (b == null)
+        1
+      else
+        a.compareTo(b)
+    } else if (b != null)
+      -1
+    else
+      0
+  }
+
+  def intCompare(a: Int, b: Int): Int = a - b
+
+  def longCompare(a: Long, b: Long): Int = {
+    if (a > b)
+      1
+    else if (a < b)
+      -1
+    else
+      0
+  }
+
+  def boolCompare(a: Boolean, b: Boolean): Int = {
+    if (a) {
+      if (b)
+        0
+      else
+        1
+    } else {
+      if (b)
+        -1
+      else
+        0
+    }
   }
 }
 

@@ -2,7 +2,7 @@ package info.gratour.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import info.gratour.common.types.*;
+import info.gratour.common.types.json.*;
 import scala.Option;
 
 import java.time.*;
@@ -35,4 +35,5 @@ public class Consts {
 //    public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
     public static final DateTimeFormatter CONVENIENT_DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 }

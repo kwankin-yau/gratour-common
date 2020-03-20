@@ -14,4 +14,6 @@ object Flag {
     r
   }
 
+  def apply(): Flag = new Flag
+
 }

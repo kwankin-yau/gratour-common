@@ -3,12 +3,21 @@ package info.gratour.common.utils
 import java.lang.{Boolean => JBoolean, Double => JDouble, Float => JFloat, Integer => JInteger, Long => JLong, Short => JShort}
 import java.math.{BigDecimal => JDecimal}
 import java.time.format.{DateTimeFormatter, DateTimeParseException}
-import java.time.{LocalDate, LocalDateTime, OffsetDateTime}
+import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime}
+
+import info.gratour.common.Consts
+
+
 
 object StringUtils {
 
+  def isNullOrEmpty(s: String): Boolean = s == null || s.isEmpty
+
   def arrayToString[T](arr: Array[T]): String = {
-    arr.mkString("[", ",", "]")
+    if (arr != null)
+      arr.mkString("[", ",", "]")
+    else
+      null
   }
 
   implicit class StringImprovement(val s: String) {
@@ -86,6 +95,13 @@ object StringUtils {
       null
   }
 
+  val FILE_NAME_DATE_TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")
+
+  def epochMilliToFileNamePart(epochMilli: Long): String = {
+    val odt = OffsetDateTime.ofInstant(Instant.ofEpochMilli(epochMilli), Consts.ZONE_ID_Z)
+    odt.format(FILE_NAME_DATE_TIME_FORMATTER)
+  }
+
   def arrayIndexOf(arr: Array[String], valueToFind: String): Int =
     arr.indexWhere(_ == valueToFind)
 
@@ -99,6 +115,11 @@ object StringUtils {
    * @return HEX字符串。
    */
   def hex(bytes: Array[Byte]): String = {
+    if (bytes == null)
+      return null
+    else if (bytes.isEmpty)
+      return "";
+
     val str = new StringBuilder
     for (b <- bytes) {
       str.append(DIGITS((0xF0 & b) >>> 4))
@@ -108,6 +129,9 @@ object StringUtils {
   }
 
   def hex(bytes: Array[Byte], offset: Int, len: Int): String = {
+    if (bytes == null)
+      return null
+
     val str = new StringBuilder
     var i = offset
     while ( {
@@ -126,11 +150,14 @@ object StringUtils {
   }
 
   def hex(s: String): Array[Byte] = {
+    if (s == null)
+      return null
+
     val l = s.length
     if (l % 2 != 0)
       throw new RuntimeException(s"Invalid hexadecimal string `$s`.")
 
-    var r = new Array[Byte](s.length)
+    val r = new Array[Byte](l / 2)
     var index = 0
     var h: Boolean = true
     var b: Byte = 0
@@ -162,5 +189,31 @@ object StringUtils {
     }
 
     r
+  }
+
+  def strLen(bytes: Array[Byte]): Int = {
+    for (i <- bytes.indices) {
+      val b = bytes(i)
+      if (b == 0)
+        return i;
+    }
+
+    bytes.length
+  }
+
+  def strLen(bytes: Array[Byte], maxLen: Int): Int = {
+    val m =
+      if (maxLen > bytes.length)
+        bytes.length
+      else
+        maxLen
+
+    for (i <- 0 until m) {
+      val b = bytes(i)
+      if (b == 0)
+        return i;
+    }
+
+    m
   }
 }

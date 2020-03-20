@@ -14,4 +14,10 @@ class IncIndex {
 object IncIndex {
 
   def apply(): IncIndex = new IncIndex()
+
+  def apply(initIndex: Int): IncIndex = {
+    val r = new IncIndex()
+    r.index = initIndex
+    r
+  }
 }
