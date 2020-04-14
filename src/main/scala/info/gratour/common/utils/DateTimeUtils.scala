@@ -1,9 +1,7 @@
 package info.gratour.common.utils
 
 import java.time.format.DateTimeFormatter
-import java.time.{LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
-
-import info.gratour.common.types.EpochMillis
+import java.time.{Duration, LocalDateTime, ZoneId, ZoneOffset}
 
 object DateTimeUtils {
 
@@ -43,4 +41,17 @@ object DateTimeUtils {
   val FILE_NAME_DATETIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
 
   def dateTimeToFileName(dt: LocalDateTime): String = dt.format(FILE_NAME_DATETIME_FORMATTER)
+
+  /**
+   * Produce format:
+   * 39h 45m 47.045s
+   * -39h -45m -47.045s
+   *
+   * @param duration
+   * @return
+   */
+  def humanReadableDuration(duration: Duration): String =
+    duration.toString.substring(2)
+      .replaceAll("(\\d[HMS])(?!$)", "$1 ")
+      .toLowerCase
 }

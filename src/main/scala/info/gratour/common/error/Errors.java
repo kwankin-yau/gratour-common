@@ -78,6 +78,13 @@ public class Errors {
     public static final int NOT_ENOUGH_PRIV = -19;
     public static final String MESSAGE_KEY_NOT_ENOUGH_PRIV = "errors.not_enough_priv";
 
+    public static final int USER_INFO_NOT_ENOUGH = -20;
+    public static final String MESSAGE_KEY_USER_INFO_NOT_ENOUGH = "errors.user_info_not_enough";
+
+    public static final int RESOURCE_OCCUPIED = -21;
+    public static final String MESSAGE_KEY_RESOURCE_OCCUPIED = "errors.resource_occupied";
+
+
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
     public static final String MESSAGE_KEY_SERVICE_ALREADY_STARTED = "errors.serv_already_started";
@@ -196,6 +203,12 @@ public class Errors {
 
             case NOT_ENOUGH_PRIV:
                 return MESSAGE_KEY_NOT_ENOUGH_PRIV;
+
+            case USER_INFO_NOT_ENOUGH:
+                return MESSAGE_KEY_USER_INFO_NOT_ENOUGH;
+
+            case RESOURCE_OCCUPIED:
+                return MESSAGE_KEY_RESOURCE_OCCUPIED;
 
             // service error
             case SERVICE_ALREADY_STARTED:

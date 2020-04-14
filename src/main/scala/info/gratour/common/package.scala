@@ -1,6 +1,6 @@
 package info.gratour
 
-import scala.reflect.ClassTag
+import scala.util.matching.Regex
 
 package object common {
 
@@ -49,6 +49,13 @@ package object common {
       false
     }
 
+  }
+
+  implicit class PathExtractor(sc: StringContext) {
+    object path {
+      def unapplySeq(str: String): Option[Seq[String]] =
+        sc.parts.map(Regex.quote).mkString("^", "([^/]+)", "$").r.unapplySeq(str)
+    }
   }
 
 

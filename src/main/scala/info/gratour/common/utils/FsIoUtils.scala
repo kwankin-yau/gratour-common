@@ -4,9 +4,12 @@ import java.io._
 import java.net.URL
 import java.util.function.Consumer
 
-import org.apache.commons.io.FilenameUtils
+import org.apache.commons.io.{FileUtils, FilenameUtils}
 
 object FsIoUtils {
+
+  def byteCountToDisplaySize(size: Long): String = FileUtils.byteCountToDisplaySize(size)
+
 
   def appendPathSeparator(path: String): String = {
     if (path == null || path.length == 0)
@@ -38,7 +41,7 @@ object FsIoUtils {
 
     var extURL = url.toExternalForm
     if (extURL.endsWith(".jar")) // from getCodeSource
-      extURL = extURL.substring(0, extURL.lastIndexOf('/'))
+    extURL = extURL.substring(0, extURL.lastIndexOf('/'))
     else {
       // from getResource
       val suffix = "/" + clzz.getName.replace('.', '/') + ".class"

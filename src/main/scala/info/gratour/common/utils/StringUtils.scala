@@ -8,7 +8,6 @@ import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime}
 import info.gratour.common.Consts
 
 
-
 object StringUtils {
 
   def isNullOrEmpty(s: String): Boolean = s == null || s.isEmpty
@@ -215,5 +214,28 @@ object StringUtils {
     }
 
     m
+  }
+
+  /**
+   * 移除字符串的前导'0'字符
+   *
+   * @param value
+   * 所要处理的字符串
+   * @return 处理后的字符串
+   */
+  def removeLeadingZero(value: String): String = {
+    var beginIndex = 0
+    var i = 0
+    val count = value.codePointCount(0, value.length)
+    while (i < count && beginIndex == 0) {
+      val cp = value.codePointAt(i)
+      if (cp != '0')
+        beginIndex = i
+      else
+        i += 1
+    }
+
+    if (beginIndex == 0) value
+    else value.substring(beginIndex)
   }
 }
