@@ -147,3 +147,4 @@ case class LangTag(langId: String, countryCode: String) {
   def toLocale: Locale = new Locale(langId, countryCode)
 
 }
+

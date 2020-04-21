@@ -84,6 +84,8 @@ public class Errors {
     public static final int RESOURCE_OCCUPIED = -21;
     public static final String MESSAGE_KEY_RESOURCE_OCCUPIED = "errors.resource_occupied";
 
+    public static final int NOT_SUPPORTED = -22;
+    public static final String MESSAGE_KEY_NOT_SUPPORTED = "errors.not_supported";
 
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
@@ -209,6 +211,9 @@ public class Errors {
 
             case RESOURCE_OCCUPIED:
                 return MESSAGE_KEY_RESOURCE_OCCUPIED;
+
+            case NOT_SUPPORTED:
+                return MESSAGE_KEY_NOT_SUPPORTED;
 
             // service error
             case SERVICE_ALREADY_STARTED:
