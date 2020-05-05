@@ -238,4 +238,12 @@ object StringUtils {
     if (beginIndex == 0) value
     else value.substring(beginIndex)
   }
+
+  def intToHex(value: Int, minLen: Int): String = {
+    val r = Integer.toHexString(value)
+    if (r.length < minLen)
+      org.apache.commons.lang3.StringUtils.leftPad(r, minLen, '0')
+    else
+      r
+  }
 }

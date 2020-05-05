@@ -7,6 +7,7 @@
  * ******************************************************************************/
 package info.gratour.common.types
 
+import java.sql.Timestamp
 import java.time.temporal.ChronoUnit
 import java.time.{Instant, LocalDateTime, OffsetDateTime, ZonedDateTime}
 
@@ -25,6 +26,8 @@ case class EpochMillis(millis: Long) extends DateTimeQryCondition {
 
   def toInstant: Instant =
     Instant.ofEpochMilli(millis)
+
+  def toTimestamp: Timestamp = new Timestamp(millis)
 
   def toText: String =
     toOffsetDateTimeZ.format(Consts.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS)

@@ -110,6 +110,9 @@ public class Errors {
     public static final int MISSING_REQUEST_PARAM = -105;
     public static final String MESSAGE_KEY_MISSING_REQUEST_PARAM = "errors.missing_request_param";
 
+    public static final int SERVICE_NOT_AVAILABLE = -106;
+    public static final String MESSAGE_KEY_SERVICE_NOT_AVAILABLE = "errors.service_not_available";
+
     // script errors
     public static final int BAD_FORMAT = -200;
     public static final String MESSAGE_KEY_BAD_FORMAT = "errors.bad_format";
@@ -236,6 +239,9 @@ public class Errors {
 
             case MISSING_REQUEST_PARAM:
                 return MESSAGE_KEY_MISSING_REQUEST_PARAM;
+
+            case SERVICE_NOT_AVAILABLE:
+                return MESSAGE_KEY_SERVICE_NOT_AVAILABLE;
 
             // script errors
             case BAD_FORMAT:

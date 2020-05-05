@@ -33,5 +33,4 @@ object ShutdownRegistry {
     list.add(Entry(name, autoCloseable))
   }
 
-
 }
