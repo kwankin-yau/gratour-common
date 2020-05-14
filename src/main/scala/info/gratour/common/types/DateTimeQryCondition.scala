@@ -31,6 +31,14 @@ object InstantEqual {
   def now(): InstantEqual = InstantEqual(Instant.now())
 }
 
+case class InstantAfter(instant: Instant) extends DateTimeQryCondition {
+  override def validate: Boolean = true
+
+  override def check(): DateTimeQryCondition = this
+
+  override def toDateTimeExpr: String = "[" + String.valueOf(instant.toEpochMilli)
+}
+
 case class DateTimeRangeWithin31days(notBefore: EpochMillis, before: EpochMillis) extends DateTimeQryCondition {
 
   override def validate: Boolean = {

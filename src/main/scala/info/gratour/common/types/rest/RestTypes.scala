@@ -20,4 +20,5 @@ case class Pagination(
 
 object Pagination {
   val DEFAULT: Pagination = Pagination(20, 1)
+  val FIRST_ONE: Pagination = Pagination(1, 1)
 }

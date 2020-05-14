@@ -9,17 +9,23 @@ package info.gratour.common.types
 
 import java.sql.Timestamp
 import java.time.temporal.ChronoUnit
-import java.time.{Instant, LocalDateTime, OffsetDateTime, ZonedDateTime}
+import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId, ZonedDateTime}
 
 import info.gratour.common.Consts
 
 case class EpochMillis(millis: Long) extends DateTimeQryCondition {
+
+  def toOffsetDateTime(zoneId: ZoneId): OffsetDateTime =
+    OffsetDateTime.ofInstant(Instant.ofEpochMilli(millis), zoneId)
 
   def toOffsetDateTimeZ: OffsetDateTime =
     OffsetDateTime.ofInstant(Instant.ofEpochMilli(millis), Consts.ZONE_ID_Z)
 
   def toLocalDateTimeBeijing: LocalDateTime =
     LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), Consts.ZONE_OFFSET_BEIJING)
+
+  def toLocalDateBeijing: LocalDate =
+    LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), Consts.ZONE_OFFSET_BEIJING).toLocalDate
 
   def toZonedDateTimeZ: ZonedDateTime =
     ZonedDateTime.ofInstant(Instant.ofEpochMilli(millis), Consts.ZONE_ID_Z)
@@ -44,9 +50,15 @@ case class EpochMillis(millis: Long) extends DateTimeQryCondition {
 
 object EpochMillis {
   def now(): EpochMillis = new EpochMillis(System.currentTimeMillis())
+
   def startOfToday(): EpochMillis = {
     val odt = OffsetDateTime.now().truncatedTo(ChronoUnit.DAYS)
     new EpochMillis(odt.toInstant.toEpochMilli)
+  }
+
+  def startOfMonth(): EpochMillis = {
+    val odt = OffsetDateTime.now().truncatedTo(ChronoUnit.DAYS).withDayOfMonth(1)
+    new EpochMillis((odt.toInstant.toEpochMilli))
   }
 
   def apply(offsetDateTime: OffsetDateTime): EpochMillis =

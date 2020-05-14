@@ -216,6 +216,21 @@ object StringUtils {
     m
   }
 
+  def cStr(bytes: Array[Byte], maxLen: Int): String = {
+    if (bytes == null)
+      return null
+
+    val l = strLen(bytes, maxLen)
+    new String(bytes, 0, l)
+  }
+
+  def cStr(bytes: Array[Byte]): String =
+    if (bytes == null)
+      null
+    else
+      cStr(bytes, bytes.length)
+
+
   /**
    * 移除字符串的前导'0'字符
    *

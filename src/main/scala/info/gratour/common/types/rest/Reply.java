@@ -6,6 +6,8 @@ import info.gratour.common.error.Errors;
 import info.gratour.common.utils.StringUtils;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -63,6 +65,23 @@ public class Reply<T> extends RawReply {
     @Override
     public boolean hasData() {
         return data != null && data.length > 0;
+    }
+
+    /**
+     *
+     * @return a non-empty list
+     */
+    public List<T> dataList() {
+        if (data != null)
+            return Arrays.asList(data);
+        else
+            return new ArrayList<>();
+    }
+
+    public T first() {
+        if (!hasData())
+            throw new ErrorWithCode(Errors.INTERNAL_ERROR, "Reply has no data.");
+        return data[0];
     }
 
     public T firstOrNull() {
