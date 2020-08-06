@@ -3,7 +3,7 @@ package info.gratour.common.utils
 import java.lang.{Boolean => JBoolean, Double => JDouble, Float => JFloat, Integer => JInteger, Long => JLong, Short => JShort}
 import java.math.{BigDecimal => JDecimal}
 import java.time.format.{DateTimeFormatter, DateTimeParseException}
-import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime}
+import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
 
 import info.gratour.common.Consts
 
@@ -82,24 +82,44 @@ object StringUtils {
       null
   }
 
-  def tryParseLocalDateTime(value: String): LocalDateTime = try LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-  catch {
-    case e: DateTimeParseException =>
-      null
-  }
+  def tryParseLocalDateTime(value: String): LocalDateTime =
+    try
+      if (value.contains('T'))
+        LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+      else {
+        if (value.contains('.'))
+          LocalDateTime.parse(value, Consts.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS)
+        else
+          LocalDateTime.parse(value, Consts.CONVENIENT_DATETIME_FORMATTER)
+      }
+    catch {
+      case _: DateTimeParseException =>
+        null
+    }
 
-  def tryParseOffsetDateTime(value: String): OffsetDateTime = try OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-  catch {
-    case e: DateTimeParseException =>
-      null
-  }
+  def tryParseOffsetDateTime(value: String): OffsetDateTime =
+    try
+      if (value.contains('T'))
+        OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+      else {
+        if (value.contains('.'))
+          LocalDateTime.parse(value, Consts.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS).atOffset(DateTimeUtils.defaultZoneOffset)
+        else
+          LocalDateTime.parse(value, Consts.CONVENIENT_DATETIME_FORMATTER).atOffset(DateTimeUtils.defaultZoneOffset)
+      }
+    catch {
+      case _: DateTimeParseException =>
+        null
+    }
 
   val FILE_NAME_DATE_TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")
 
-  def epochMilliToFileNamePart(epochMilli: Long): String = {
-    val odt = OffsetDateTime.ofInstant(Instant.ofEpochMilli(epochMilli), Consts.ZONE_ID_Z)
+  def epochMilliToFileNamePart(epochMilli: Long, zoneId: ZoneId): String = {
+    val odt = OffsetDateTime.ofInstant(Instant.ofEpochMilli(epochMilli), zoneId)
     odt.format(FILE_NAME_DATE_TIME_FORMATTER)
   }
+
+  def epochMilliToFileNamePart(epochMilli: Long): String = epochMilliToFileNamePart(epochMilli, ZoneId.systemDefault())
 
   def arrayIndexOf(arr: Array[String], valueToFind: String): Int =
     arr.indexWhere(_ == valueToFind)
@@ -261,4 +281,6 @@ object StringUtils {
     else
       r
   }
+
+
 }

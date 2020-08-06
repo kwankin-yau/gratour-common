@@ -1,7 +1,5 @@
 package info.gratour.common.error;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -86,6 +84,15 @@ public class Errors {
 
     public static final int NOT_SUPPORTED = -22;
     public static final String MESSAGE_KEY_NOT_SUPPORTED = "errors.not_supported";
+
+    public static final int TOO_MANY_REQUEST = -23;
+    public static final String MESSAGE_KEY_TOO_MANY_REQUEST = "errors.too_many_request";
+
+    public static final int IO_ERROR = -24;
+    public static final String MESSAGE_KEY_IO_ERROR = "errors.io_error";
+
+    public static final int NO_CTRL = -25;
+    public static final String MESSAGE_KEY_NO_CTRL = "errors.no_ctrl";
 
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
@@ -217,6 +224,15 @@ public class Errors {
 
             case NOT_SUPPORTED:
                 return MESSAGE_KEY_NOT_SUPPORTED;
+
+            case TOO_MANY_REQUEST:
+                return MESSAGE_KEY_TOO_MANY_REQUEST;
+
+            case IO_ERROR:
+                return MESSAGE_KEY_IO_ERROR;
+
+            case NO_CTRL:
+                return MESSAGE_KEY_NO_CTRL;
 
             // service error
             case SERVICE_ALREADY_STARTED:

@@ -53,6 +53,35 @@ package object common {
       false
     }
 
+    def removeWhere(p: T => Boolean): T = {
+      val iter = collection.iterator()
+      while (iter.hasNext) {
+        val t = iter.next()
+        if (p(t)) {
+          iter.remove()
+          return t
+        }
+      }
+
+      null.asInstanceOf[T]
+    }
+
+    def nonEmpty: Boolean = !collection.isEmpty
+  }
+
+  implicit class ListFinder[+T](list: java.util.List[T]) {
+
+    def indexWhere(p: T => Boolean): Int = {
+      for (i <- 0 until list.size()) {
+        val item = list.get(i)
+        if (p(item))
+          return i
+      }
+
+      -1
+    }
+
+    def nonEmpty: Boolean = !list.isEmpty
   }
 
   implicit class PathExtractor(sc: StringContext) {

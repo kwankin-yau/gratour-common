@@ -1,7 +1,9 @@
 package info.gratour.common.utils
 
 import java.time.format.DateTimeFormatter
-import java.time.{Duration, LocalDateTime, ZoneId, ZoneOffset}
+import java.time.{Clock, Duration, Instant, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
+
+import info.gratour.common.Consts
 
 object DateTimeUtils {
 
@@ -36,7 +38,13 @@ object DateTimeUtils {
     }
   }
 
+  def defaultZoneOffset: ZoneOffset = {
+    val clock = Clock.systemDefaultZone()
+    clock.getZone.getRules.getOffset(clock.instant())
+  }
+
   val CONVENIENT_DATETIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+  val CONVENIENT_DATETIME_FORMATTER_SHORT_YEAR: DateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss")
   val CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
   val FILE_NAME_DATETIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
 
@@ -54,4 +62,7 @@ object DateTimeUtils {
     duration.toString.substring(2)
       .replaceAll("(\\d[HMS])(?!$)", "$1 ")
       .toLowerCase
+
+  def epochMillisToBeijingOffsetDateTimeString(epochMillis: Long): String =
+    Instant.ofEpochMilli(epochMillis).atOffset(Consts.ZONE_OFFSET_BEIJING).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 }
