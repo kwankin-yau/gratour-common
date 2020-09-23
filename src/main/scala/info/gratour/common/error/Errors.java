@@ -2,6 +2,7 @@ package info.gratour.common.error;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.RecursiveTask;
 
 public class Errors {
 
@@ -93,6 +94,9 @@ public class Errors {
 
     public static final int NO_CTRL = -25;
     public static final String MESSAGE_KEY_NO_CTRL = "errors.no_ctrl";
+
+    public static final int RULE_VIOLATED = -26;
+    public static final String MESSAGE_KEY_RULE_VIOLATED = "errors.rule_violated";
 
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
@@ -233,6 +237,9 @@ public class Errors {
 
             case NO_CTRL:
                 return MESSAGE_KEY_NO_CTRL;
+
+            case RULE_VIOLATED:
+                return MESSAGE_KEY_RULE_VIOLATED;
 
             // service error
             case SERVICE_ALREADY_STARTED:

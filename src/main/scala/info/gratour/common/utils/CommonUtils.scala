@@ -4,11 +4,17 @@ import java.lang.reflect.{Field, Modifier}
 import java.nio.ByteBuffer
 import java.util.{Base64, Locale, Random, UUID}
 
+import com.typesafe.scalalogging.Logger
+
 import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Success, Try}
 
 object CommonUtils {
+
+  val ResLeakDetectLogger: Logger = Logger("ResLeakDetect")
+
+
 
   def futureToTry[T](f: Future[T])(implicit ec: ExecutionContext): Future[Try[T]] =
     f.map(Success(_))
@@ -55,10 +61,16 @@ object CommonUtils {
   }
 
   def uuidToBytes(uuid: UUID): Array[Byte] = {
-    val buff = ByteBuffer.wrap(new Array[Byte](16))
+    val r = new Array[Byte](16)
+    val buff = ByteBuffer.wrap(r)
     buff.putLong(uuid.getMostSignificantBits)
     buff.putLong(uuid.getLeastSignificantBits)
-    buff.array()
+    r
+  }
+
+  def randomUuidString(): String = {
+    val uuid = UUID.randomUUID()
+    uuid.toString
   }
 
 
@@ -140,7 +152,25 @@ object CommonUtils {
         0
     }
   }
+
+
+  def getBackingArrayRange(byteBuffer: ByteBuffer): ByteArrayRange = {
+    if (byteBuffer.hasArray) {
+      val r = byteBuffer.array()
+      val off = byteBuffer.arrayOffset()
+      ByteArrayRange(r, off, byteBuffer.limit())
+    } else {
+      val size = byteBuffer.remaining()
+      val r = new Array[Byte](size)
+      if (size > 0)
+        byteBuffer.get(r)
+      ByteArrayRange(r, 0, size)
+    }
+  }
+
 }
+
+case class ByteArrayRange(arr: Array[Byte], offset: Int, length: Int)
 
 case class LangTag(langId: String, countryCode: String) {
 
