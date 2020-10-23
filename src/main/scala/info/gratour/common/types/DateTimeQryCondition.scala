@@ -29,6 +29,7 @@ case class InstantEqual(instant: Instant) extends DateTimeQryCondition {
 
 object InstantEqual {
   def now(): InstantEqual = InstantEqual(Instant.now())
+  def apply(millis: Long): InstantEqual = new InstantEqual(Instant.ofEpochMilli(millis))
 }
 
 case class InstantAfter(instant: Instant) extends DateTimeQryCondition {

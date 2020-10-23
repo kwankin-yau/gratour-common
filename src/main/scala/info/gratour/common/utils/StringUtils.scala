@@ -2,6 +2,7 @@ package info.gratour.common.utils
 
 import java.lang.{Boolean => JBoolean, Double => JDouble, Float => JFloat, Integer => JInteger, Long => JLong, Short => JShort}
 import java.math.{BigDecimal => JDecimal}
+import java.nio.charset.Charset
 import java.time.format.{DateTimeFormatter, DateTimeParseException}
 import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
 
@@ -11,6 +12,7 @@ import info.gratour.common.Consts
 object StringUtils {
 
   def isNullOrEmpty(s: String): Boolean = s == null || s.isEmpty
+  def nullAsEmpty(s: String): String = if (s == null) "" else s
 
   def arrayToString[T](arr: Array[T]): String = {
     if (arr != null)
@@ -21,6 +23,7 @@ object StringUtils {
 
   implicit class StringImprovement(val s: String) {
     def nullOrEmpty: Boolean = s == null || s.isEmpty
+    def nullAsEmpty: String = if (s == null) "" else s
   }
 
   def tryParseInt(s: String): JInteger = try
@@ -250,6 +253,22 @@ object StringUtils {
     else
       cStr(bytes, bytes.length)
 
+  def cStr(bytes: Array[Byte], maxLen: Int, charset: Charset): String = {
+    if (bytes == null)
+      return null
+
+    val l = strLen(bytes, maxLen)
+    new String(bytes, 0, l, charset)
+  }
+
+  def cStr(bytes: Array[Byte], charset: Charset): String =
+    if (bytes == null)
+      null
+    else
+      cStr(bytes, bytes.length, charset)
+
+  def leftPad (str: String, size: Int, padChar: Char): String = org.apache.commons.lang3.StringUtils.leftPad(str, size, padChar)
+  def rightPad(str: String, size: Int, padChar: Char): String = org.apache.commons.lang3.StringUtils.rightPad(str, size, padChar)
 
   /**
    * 移除字符串的前导'0'字符

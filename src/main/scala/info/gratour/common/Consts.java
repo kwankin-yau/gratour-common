@@ -38,4 +38,6 @@ public class Consts {
     public static final DateTimeFormatter CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+    public static final String[] EMPTY_STRING_ARRAY = new String[0];
+    public static final int[] EMPTY_INT_ARRAY = new int[0];
 }

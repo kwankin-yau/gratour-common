@@ -42,6 +42,8 @@ trait MemDbService extends AutoCloseable {
 
 trait SimpleLock {
   def lock(): Unit
-  def tryLock(time: Long, unit: TimeUnit): Boolean
+  def lock(leaseTime: Long, unit: TimeUnit): Unit
+  def tryLock(waitTime: Long, unit: TimeUnit): Boolean
+  def tryLock(waitTime: Long, leaseTime: Long, unit: TimeUnit): Boolean
   def unlock(): Unit
 }
