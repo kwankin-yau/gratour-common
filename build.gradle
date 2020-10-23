@@ -25,8 +25,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
 
-    implementation 'org.scala-lang:scala-library:2.12.11'
-    implementation 'org.scala-lang:scala-reflect:2.12.11'
+    implementation 'org.scala-lang:scala-library:2.12.12'
+    implementation 'org.scala-lang:scala-reflect:2.12.12'
 
 
     api 'org.apache.commons:commons-lang3:3.8.1'
