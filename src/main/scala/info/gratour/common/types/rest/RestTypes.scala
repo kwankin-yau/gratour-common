@@ -44,4 +44,12 @@ object Pagination {
   val DEFAULT: Pagination = Pagination(20, 1)
   val FIRST_ONE: Pagination = Pagination(1, 1)
 
+  def pageCount(totalRecordCount: Long, pageSize: Int): Long = {
+    var r = totalRecordCount / pageSize
+    if ((totalRecordCount % pageSize) != 0) {
+      r += 1
+    }
+    r
+  }
+
 }
