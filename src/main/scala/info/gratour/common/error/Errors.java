@@ -151,6 +151,13 @@ public class Errors {
     public static final int FOREIGN_KEY_VIOLATION = -206;
     public static final String MESSAGE_KEY_FOREIGN_KEY_VIOLATION = "errors.foreign_key_violation";
 
+    public static boolean isOk(int errorCode) {
+        return errorCode == OK;
+    }
+
+    public static boolean isError(int errorCode) {
+        return errorCode != OK;
+    }
 
     public static String messageKey(int errorCode) {
         switch (errorCode) {

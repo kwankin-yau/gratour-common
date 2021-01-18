@@ -20,7 +20,6 @@ public class Consts {
                 .registerTypeHierarchyAdapter(Option.class, new OptionMaterializer())
                 .registerTypeHierarchyAdapter(byte[].class, new ByteArrayBase64Materializer())
                 ;
-
     }
 
     public static final Gson GSON = defaultGsonBuilder().create();
@@ -40,4 +39,7 @@ public class Consts {
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
     public static final int[] EMPTY_INT_ARRAY = new int[0];
+
+    public static final String LINE_BREAK = System.getProperty("line.separator");
+    public static final String LINUX_LINE_BREAK = "\n";
 }

@@ -8,6 +8,10 @@ class IncIndex {
     index
   }
 
+  def inc(delta: Int): Int = {
+    index += delta
+    index
+  }
 
 }
 
