@@ -20,17 +20,23 @@ object ShutdownRegistry {
   val list: java.util.List[Entry] = new java.util.ArrayList[Entry]()
 
   def shutdown(): Unit = {
-    list.forEach { e =>
-      e.close()
+    this.synchronized {
+      list.forEach { e =>
+        e.close()
+      }
     }
   }
 
   def register(name: String, closeable: Closeable): Unit = {
-    list.add(Entry(name, closeable))
+    this.synchronized {
+      list.add(Entry(name, closeable))
+    }
   }
 
   def register(name: String, autoCloseable: AutoCloseable): Unit = {
-    list.add(Entry(name, autoCloseable))
+    this.synchronized {
+      list.add(Entry(name, autoCloseable))
+    }
   }
 
 }
