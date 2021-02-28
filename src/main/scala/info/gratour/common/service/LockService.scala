@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter
 import java.time.{Instant, OffsetDateTime}
 
 import info.gratour.common.Consts
+import info.gratour.common.utils.DateTimeUtils
 
 
 /**
@@ -143,7 +144,7 @@ object LockService {
   case object FAILED extends UnlockResult
 
   def lockInfo(lockerName: String, lockTime: Long): String = {
-    val dt = OffsetDateTime.ofInstant(Instant.ofEpochMilli(lockTime), Consts.ZONE_ID_Z)
+    val dt = OffsetDateTime.ofInstant(Instant.ofEpochMilli(lockTime), DateTimeUtils.ZONE_ID_Z)
     lockerName + "@" + dt.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
   }
 }

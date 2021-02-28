@@ -4,9 +4,7 @@ import java.lang.{Boolean => JBoolean, Double => JDouble, Float => JFloat, Integ
 import java.math.{BigDecimal => JDecimal}
 import java.nio.charset.Charset
 import java.time.format.{DateTimeFormatter, DateTimeParseException}
-import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
-
-import info.gratour.common.Consts
+import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId}
 
 
 object StringUtils {
@@ -91,9 +89,9 @@ object StringUtils {
         LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
       else {
         if (value.contains('.'))
-          LocalDateTime.parse(value, Consts.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS)
+          LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS)
         else
-          LocalDateTime.parse(value, Consts.CONVENIENT_DATETIME_FORMATTER)
+          LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER)
       }
     catch {
       case _: DateTimeParseException =>
@@ -102,14 +100,7 @@ object StringUtils {
 
   def tryParseOffsetDateTime(value: String): OffsetDateTime =
     try
-      if (value.contains('T'))
-        OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-      else {
-        if (value.contains('.'))
-          LocalDateTime.parse(value, Consts.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS).atOffset(DateTimeUtils.defaultZoneOffset)
-        else
-          LocalDateTime.parse(value, Consts.CONVENIENT_DATETIME_FORMATTER).atOffset(DateTimeUtils.defaultZoneOffset)
-      }
+      DateTimeUtils.parseDateTime(value)
     catch {
       case _: DateTimeParseException =>
         null
@@ -293,13 +284,17 @@ object StringUtils {
     else value.substring(beginIndex)
   }
 
-  def intToHex(value: Int, minLen: Int): String = {
-    val r = Integer.toHexString(value)
+  def intToHex(value: Int, minLen: Int, prepend0x: Boolean): String = {
+    var r = Integer.toHexString(value)
     if (r.length < minLen)
-      org.apache.commons.lang3.StringUtils.leftPad(r, minLen, '0')
+      r = org.apache.commons.lang3.StringUtils.leftPad(r, minLen, '0')
+
+    if (prepend0x)
+      "0x" + r
     else
       r
   }
 
+  def intToHex(value: Int, minLen: Int): String = intToHex(value, minLen, prepend0x = false)
 
 }

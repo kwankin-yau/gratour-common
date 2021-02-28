@@ -3,15 +3,13 @@ package info.gratour.common.utils
 import java.time.format.DateTimeFormatter
 import java.time.{Clock, Duration, Instant, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
 
-import info.gratour.common.Consts
-
 object DateTimeUtils {
 
   /**
-    * Get ZoneId of specified id string.
-    *
-    * @return null if zoneId not found or invalid.
-    */
+   * Get ZoneId of specified id string.
+   *
+   * @return null if zoneId not found or invalid.
+   */
   def zoneIdOf(zoneId: String): ZoneId = {
     if (zoneId == null || zoneId.isEmpty)
       return null
@@ -25,10 +23,10 @@ object DateTimeUtils {
   }
 
   /**
-    * Get ZoneId of specified zone offset(by minutes).
-    *
-    * @return null if offset out of range.
-    */
+   * Get ZoneId of specified zone offset(by minutes).
+   *
+   * @return null if offset out of range.
+   */
   def zoneIdOfOffset(zoneOffsetMinutes: Int): ZoneId = {
     try {
       ZoneOffset.ofTotalSeconds(zoneOffsetMinutes * 60)
@@ -42,6 +40,13 @@ object DateTimeUtils {
     val clock = Clock.systemDefaultZone()
     clock.getZone.getRules.getOffset(clock.instant())
   }
+
+  val DEFAULT_ZONE_OFFSET: ZoneOffset = defaultZoneOffset
+  val DEFAULT_ZONE_ID: ZoneId = ZoneId.systemDefault()
+
+  val ZONE_ID_Z: ZoneId = ZoneId.of("Z")
+  val ZONE_OFFSET_BEIJING: ZoneOffset = ZoneOffset.ofHours(8)
+
 
   val CONVENIENT_DATETIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
   val CONVENIENT_DATETIME_FORMATTER_SHORT_YEAR: DateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss")
@@ -64,5 +69,16 @@ object DateTimeUtils {
       .toLowerCase
 
   def epochMillisToBeijingOffsetDateTimeString(epochMillis: Long): String =
-    Instant.ofEpochMilli(epochMillis).atOffset(Consts.ZONE_OFFSET_BEIJING).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+    Instant.ofEpochMilli(epochMillis).atOffset(ZONE_OFFSET_BEIJING).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+  def parseDateTime(value: String): OffsetDateTime =
+    if (value.contains('T'))
+      OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+    else {
+      if (value.contains('.'))
+        LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS).atOffset(DateTimeUtils.defaultZoneOffset)
+      else
+        LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER).atOffset(DateTimeUtils.defaultZoneOffset)
+    }
+
 }

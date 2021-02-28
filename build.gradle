@@ -6,9 +6,9 @@ plugins {
 }
 
 group 'info.gratour.common'
-version '3.1.0'
+version '3.2.0'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 compileJava.options.encoding = 'UTF-8'
 compileScala.options.encoding = 'UTF-8'
@@ -24,9 +24,9 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-
-    implementation 'org.scala-lang:scala-library:2.12.12'
-    implementation 'org.scala-lang:scala-reflect:2.12.12'
+    implementation 'org.scala-lang:scala-library:2.13.4'
+    implementation 'org.scala-lang:scala-reflect:2.13.4'
+    implementation 'com.typesafe.scala-logging:scala-logging_2.13:3.9.2'
 
 
     api 'org.apache.commons:commons-lang3:3.8.1'
@@ -35,11 +35,13 @@ dependencies {
 
     api 'com.google.code.gson:gson:2.8.6'
 
-    implementation 'com.typesafe.scala-logging:scala-logging_2.12:3.9.2'
 
-    implementation 'dnsjava:dnsjava:2.1.8'
+
+//    implementation 'dnsjava:dnsjava:2.1.8'// https://mvnrepository.com/artifact/dnsjava/dnsjava
+    implementation group: 'dnsjava', name: 'dnsjava', version: '3.3.1'
+
+//    api group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
     testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-    // https://mvnrepository.com/artifact/commons-validator/commons-validator
 
 
 }

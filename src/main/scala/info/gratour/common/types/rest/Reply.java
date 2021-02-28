@@ -1,11 +1,9 @@
 package info.gratour.common.types.rest;
 
-import com.google.gson.reflect.TypeToken;
 import info.gratour.common.error.ErrorWithCode;
 import info.gratour.common.error.Errors;
 import info.gratour.common.utils.StringUtils;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +11,8 @@ import java.util.function.Consumer;
 
 public class Reply<T> extends RawReply {
 
-    public static final Type TYPE = new TypeToken<Reply>() {
-    }.getType();
+//    public static final Type TYPE = new TypeToken<Reply>() {
+//    }.getType();
 
     public static interface Mapper<T, C> {
 
@@ -91,6 +89,7 @@ public class Reply<T> extends RawReply {
             return null;
     }
 
+    @SuppressWarnings({"unchecked"})
     public <C> Reply<C> map(Mapper<T, C> mapper) {
         if (hasData()) {
             C[] arr = (C[]) new Object[data.length];
@@ -146,6 +145,10 @@ public class Reply<T> extends RawReply {
         return r;
     }
 
+    public static <T> Reply<T> multi(T[] data) {
+        return multi(data, data.length);
+    }
+
     public static <T> Reply<T> multi(List<T> data, long totalRecordCount) {
         Reply<T> r = new Reply<T>(Errors.OK);
         @SuppressWarnings("unchecked")
@@ -156,6 +159,10 @@ public class Reply<T> extends RawReply {
         r.setCount(totalRecordCount);
 
         return r;
+    }
+
+    public static <T> Reply<T> multi(List<T> data) {
+        return multi(data, data.size());
     }
 
     public static <T> Reply<T> error(int errCode) {
@@ -180,13 +187,22 @@ public class Reply<T> extends RawReply {
                 '}';
     }
 
-    public static final Reply OK = new Reply(Errors.OK);
-    public static final Reply INTERNAL_ERROR = new Reply(Errors.INTERNAL_ERROR);
-    public static final Reply AUTHENTICATION_FAILED = new Reply(Errors.AUTHENTICATION_FAILED);
-    public static final Reply BAD_FORMAT = new Reply(Errors.BAD_FORMAT);
-    public static final Reply DUPLICATED_VALUE = new Reply(Errors.DUPLICATED_VALUE);
-    public static final Reply RECORD_NOT_FOUND = new Reply(Errors.RECORD_NOT_FOUND);
-    public static final Reply ACCESS_DENIED = new Reply(Errors.ACCESS_DENIED);
-    public static final Reply SESSION_EXPIRED = new Reply(Errors.SESSION_EXPIRED);
-    public static final Reply BAD_REQUEST = new Reply(Errors.BAD_REQUEST);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply OK = new Reply<>(Errors.OK);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply INTERNAL_ERROR = new Reply<>(Errors.INTERNAL_ERROR);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply AUTHENTICATION_FAILED = new Reply<>(Errors.AUTHENTICATION_FAILED);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply BAD_FORMAT = new Reply<>(Errors.BAD_FORMAT);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply DUPLICATED_VALUE = new Reply<>(Errors.DUPLICATED_VALUE);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply RECORD_NOT_FOUND = new Reply<>(Errors.RECORD_NOT_FOUND);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply ACCESS_DENIED = new Reply<>(Errors.ACCESS_DENIED);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply SESSION_EXPIRED = new Reply<>(Errors.SESSION_EXPIRED);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply BAD_REQUEST = new Reply<>(Errors.BAD_REQUEST);
 }

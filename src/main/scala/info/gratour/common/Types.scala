@@ -40,5 +40,7 @@ object Types {
   val OffsetDateTimeType: universe.Type = typeTag[OffsetDateTime].tpe
   val EpochMillisType: universe.Type = typeTag[EpochMillis].tpe
 
+  val InputStreamType: universe.Type = typeTag[java.io.InputStream].tpe
+
 //  val ByteArrayType: universe.Type = typeTag[JavaByteArray.BYTE]
 }

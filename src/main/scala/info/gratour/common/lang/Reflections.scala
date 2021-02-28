@@ -31,4 +31,5 @@ object Reflections {
   val JOffsetDateTime: Class[OffsetDateTime] = classOf[OffsetDateTime]
   val JByteArray: Class[_] = JavaByteArray.BYTE_ARRAY_CLASS
   val JEpochMillis: Class[EpochMillis] = classOf[EpochMillis]
+  val JInputStream: Class[java.io.InputStream] = classOf[java.io.InputStream]
 }
