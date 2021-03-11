@@ -5,6 +5,7 @@ import java.math.{BigDecimal => JDecimal}
 import java.nio.charset.Charset
 import java.time.format.{DateTimeFormatter, DateTimeParseException}
 import java.time.{Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId}
+import java.util.Base64
 
 
 object StringUtils {
@@ -202,6 +203,28 @@ object StringUtils {
     }
 
     r
+  }
+
+  def urlSafeBase64NoPadding(s: String): Array[Byte] = {
+    val pad = s.length % 4
+    val b64 =
+      pad match {
+        case 3 => s + "="
+        case 2 => s + "=="
+        case 1 => s + "==="
+        case _ => s
+      }
+
+    Base64.getUrlDecoder.decode(b64)
+  }
+
+  def urlSafeBase64NoPadding(b: Array[Byte]): String = {
+    val r = Base64.getUrlEncoder.encodeToString(b)
+    val idx = r.indexOf('=')
+    if (idx > 0)
+      r.substring(0, idx)
+    else
+      r
   }
 
   def strLen(bytes: Array[Byte]): Int = {
