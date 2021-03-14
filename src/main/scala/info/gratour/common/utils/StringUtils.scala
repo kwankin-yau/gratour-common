@@ -11,6 +11,7 @@ import java.util.Base64
 object StringUtils {
 
   def isNullOrEmpty(s: String): Boolean = s == null || s.isEmpty
+
   def nullAsEmpty(s: String): String = if (s == null) "" else s
 
   def arrayToString[T](arr: Array[T]): String = {
@@ -22,6 +23,7 @@ object StringUtils {
 
   implicit class StringImprovement(val s: String) {
     def nullOrEmpty: Boolean = s == null || s.isEmpty
+
     def nullAsEmpty: String = if (s == null) "" else s
   }
 
@@ -120,6 +122,13 @@ object StringUtils {
     arr.indexWhere(_ == valueToFind)
 
   private val DIGITS = Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f')
+
+  def hex(b: Byte): String = {
+    val chars = new Array[Char](2)
+    chars(0) = DIGITS((0xF0 & b) >>> 4)
+    chars(1) = DIGITS(0x0F & b)
+    new String(chars)
+  }
 
   /**
    * 字节数组转HEX字符串。
@@ -281,7 +290,8 @@ object StringUtils {
     else
       cStr(bytes, bytes.length, charset)
 
-  def leftPad (str: String, size: Int, padChar: Char): String = org.apache.commons.lang3.StringUtils.leftPad(str, size, padChar)
+  def leftPad(str: String, size: Int, padChar: Char): String = org.apache.commons.lang3.StringUtils.leftPad(str, size, padChar)
+
   def rightPad(str: String, size: Int, padChar: Char): String = org.apache.commons.lang3.StringUtils.rightPad(str, size, padChar)
 
   /**
