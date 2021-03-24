@@ -151,6 +151,9 @@ public class Errors {
     public static final int FOREIGN_KEY_VIOLATION = -206;
     public static final String MESSAGE_KEY_FOREIGN_KEY_VIOLATION = "errors.foreign_key_violation";
 
+    public static final int RETRY = -207;
+    public static final String MESSAGE_KEY_RETRY = "errors.retry";
+
     public static boolean isOk(int errorCode) {
         return errorCode == OK;
     }
@@ -297,6 +300,9 @@ public class Errors {
 
             case FOREIGN_KEY_VIOLATION:
                 return MESSAGE_KEY_FOREIGN_KEY_VIOLATION;
+
+            case RETRY:
+                return MESSAGE_KEY_RETRY;
 
             default:
                 return null;

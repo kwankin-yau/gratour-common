@@ -168,6 +168,19 @@ object CommonUtils {
     }
   }
 
+  def contactByteArrays(bs: Array[Byte]*): Array[Byte] = {
+    val sz = bs.foldLeft(0)((c, b) => c + b.length)
+    val r = new Array[Byte](sz)
+    var index = 0
+    bs.foreach(b => {
+      System.arraycopy(b, 0, r, index, b.length)
+      index += b.length
+    })
+
+    r
+  }
+
+
 }
 
 case class ByteArrayRange(arr: Array[Byte], offset: Int, length: Int)
