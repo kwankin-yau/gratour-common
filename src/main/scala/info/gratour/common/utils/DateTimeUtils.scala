@@ -2,6 +2,7 @@ package info.gratour.common.utils
 
 import java.time.format.DateTimeFormatter
 import java.time.{Clock, Duration, Instant, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
+import java.util.Locale
 
 object DateTimeUtils {
 
@@ -52,6 +53,7 @@ object DateTimeUtils {
   val CONVENIENT_DATETIME_FORMATTER_SHORT_YEAR: DateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss")
   val CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
   val FILE_NAME_DATETIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
+  val HTTP_DATE_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH).withZone(ZoneId.of("GMT"))
 
   def dateTimeToFileName(dt: LocalDateTime): String = dt.format(FILE_NAME_DATETIME_FORMATTER)
 
