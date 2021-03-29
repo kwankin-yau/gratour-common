@@ -47,6 +47,15 @@ public class ConnParams {
     }
 
     @Override
+    public ConnParams clone() {
+        ConnParams r = new ConnParams();
+        r.url = url;
+        r.userName = userName;
+        r.password = password;
+        return r;
+    }
+
+    @Override
     public String toString() {
         return "ConnParams{" +
                 "url='" + url + '\'' +
