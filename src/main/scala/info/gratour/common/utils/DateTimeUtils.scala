@@ -55,6 +55,7 @@ object DateTimeUtils {
   val FILE_NAME_DATETIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
   val HTTP_DATE_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH).withZone(ZoneId.of("GMT"))
 
+  def convenientDateTimeFormat(epochMillis: Long): String = Instant.ofEpochMilli(epochMillis).atOffset(DEFAULT_ZONE_OFFSET).format(CONVENIENT_DATETIME_FORMATTER)
   def dateTimeToFileName(dt: LocalDateTime): String = dt.format(FILE_NAME_DATETIME_FORMATTER)
 
   /**
