@@ -84,4 +84,18 @@ object DateTimeUtils {
         LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER).atOffset(DateTimeUtils.defaultZoneOffset)
     }
 
+  object BeijingConv {
+    def millisToString(epochMillis: Long): String =
+      Instant.ofEpochMilli(epochMillis).atOffset(ZONE_OFFSET_BEIJING).format(CONVENIENT_DATETIME_FORMATTER)
+
+    def stringToMillis(s: String): Long =
+      LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).toInstant(ZONE_OFFSET_BEIJING).toEpochMilli
+
+    def secondsToString(epochSeconds: Long): String =
+      Instant.ofEpochSecond(epochSeconds).atOffset(ZONE_OFFSET_BEIJING).format(CONVENIENT_DATETIME_FORMATTER)
+
+    def stringToSeconds(s: String): Long =
+      LocalDateTime.parse(s, CONVENIENT_DATETIME_FORMATTER).toInstant(ZONE_OFFSET_BEIJING).toEpochMilli / 1000L
+  }
+
 }
