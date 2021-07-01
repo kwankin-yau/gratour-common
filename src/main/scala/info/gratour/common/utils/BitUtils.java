@@ -66,7 +66,7 @@ public class BitUtils {
      */
     public static int clear(int value, int bitIndex) {
         int value2 = 1 << bitIndex;
-        return value &= ~value2;
+        return value & ~value2;
     }
 
     /**

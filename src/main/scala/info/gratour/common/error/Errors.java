@@ -98,6 +98,9 @@ public class Errors {
     public static final int RULE_VIOLATED = -26;
     public static final String MESSAGE_KEY_RULE_VIOLATED = "errors.rule_violated";
 
+    public static final int NO_CONNECTION_AVAILABLE = -27;
+    public static final String MESSAGE_KEY_NO_CONNECTION_AVAILABLE = "errors.no_connection_available";
+
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
     public static final String MESSAGE_KEY_SERVICE_ALREADY_STARTED = "errors.serv_already_started";
@@ -275,6 +278,9 @@ public class Errors {
 
             case SERVICE_NOT_AVAILABLE:
                 return MESSAGE_KEY_SERVICE_NOT_AVAILABLE;
+
+            case NO_CONNECTION_AVAILABLE:
+                return MESSAGE_KEY_NO_CONNECTION_AVAILABLE;
 
             // script errors
             case BAD_FORMAT:

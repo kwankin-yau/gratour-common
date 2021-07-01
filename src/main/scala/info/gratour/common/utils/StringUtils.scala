@@ -27,12 +27,13 @@ object StringUtils {
     def nullAsEmpty: String = if (s == null) "" else s
   }
 
-  def tryParseInt(s: String): JInteger = try
-    s.toInt
-  catch {
-    case e: NumberFormatException =>
-      null
-  }
+  def tryParseInt(s: String): JInteger =
+    try
+      s.toInt
+    catch {
+      case e: NumberFormatException =>
+        null
+    }
 
   def tryParseZeroOneAsBool(value: String): JBoolean = value match {
     case "0" =>
@@ -43,48 +44,61 @@ object StringUtils {
       null
   }
 
-  def tryParseBool(value: String): JBoolean = try
-    JBoolean.valueOf(value.toBoolean)
-  catch {
-    case e: IllegalArgumentException =>
-      null
-  }
+  def tryParseBool(value: String): JBoolean =
+    try
+      JBoolean.valueOf(value)
+    catch {
+      case e: IllegalArgumentException =>
+        null
+    }
 
-  def tryParseShort(value: String): JShort = try java.lang.Short.parseShort(value)
-  catch {
-    case e: NumberFormatException =>
-      null
-  }
+  def tryParseShort(value: String): JShort =
+    try
+      java.lang.Short.parseShort(value)
+    catch {
+      case e: NumberFormatException =>
+        null
+    }
 
-  def tryParseLong(value: String): JLong = try java.lang.Long.parseLong(value)
-  catch {
-    case e: NumberFormatException =>
-      null
-  }
+  def tryParseLong(value: String): JLong =
+    try
+      java.lang.Long.parseLong(value)
+    catch {
+      case e: NumberFormatException =>
+        null
+    }
 
-  def tryParseDecimal(value: String): JDecimal = try new JDecimal(value)
-  catch {
-    case e: NumberFormatException =>
-      null
-  }
+  def tryParseDecimal(value: String): JDecimal =
+    try
+      new JDecimal(value)
+    catch {
+      case e: NumberFormatException =>
+        null
+    }
 
-  def tryParseFloat(value: String): JFloat = try JFloat.parseFloat(value)
-  catch {
-    case e: NumberFormatException =>
-      null
-  }
+  def tryParseFloat(value: String): JFloat =
+    try
+      JFloat.parseFloat(value)
+    catch {
+      case e: NumberFormatException =>
+        null
+    }
 
-  def tryParseDouble(value: String): JDouble = try JDouble.parseDouble(value)
-  catch {
-    case e: NumberFormatException =>
-      null
-  }
+  def tryParseDouble(value: String): JDouble =
+    try
+      JDouble.parseDouble(value)
+    catch {
+      case e: NumberFormatException =>
+        null
+    }
 
-  def tryParseLocalDate(value: String): LocalDate = try LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE)
-  catch {
-    case e: DateTimeParseException =>
-      null
-  }
+  def tryParseLocalDate(value: String): LocalDate =
+    try
+      LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE)
+    catch {
+      case e: DateTimeParseException =>
+        null
+    }
 
   def tryParseLocalDateTime(value: String): LocalDateTime =
     try
