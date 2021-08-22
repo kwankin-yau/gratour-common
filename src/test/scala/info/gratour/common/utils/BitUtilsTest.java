@@ -1,7 +1,3 @@
-package info.gratour.common.utils;
-
-import junit.framework.TestCase;
-
 /*******************************************************************************
  *  Copyright (c) 2019, 2021 lucendar.com.
  *  All rights reserved.
@@ -9,6 +5,10 @@ import junit.framework.TestCase;
  *  Contributors:
  *     KwanKin Yau (alphax@vip.163.com) - initial API and implementation
  *******************************************************************************/
+package info.gratour.common.utils;
+
+import junit.framework.TestCase;
+
 public class BitUtilsTest extends TestCase {
 
     public void testShiftRight() {
@@ -19,4 +19,5 @@ public class BitUtilsTest extends TestCase {
         assertEquals(v3, 0b1101);
         System.out.println("OK");
     }
+
 }

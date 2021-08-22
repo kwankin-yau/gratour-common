@@ -3,6 +3,7 @@ package info.gratour.common.utils
 import java.time.format.DateTimeFormatter
 import java.time.{Clock, Duration, Instant, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
 import java.util.Locale
+import java.util.concurrent.atomic.AtomicReference
 
 object DateTimeUtils {
 
@@ -35,6 +36,28 @@ object DateTimeUtils {
       case _: Exception =>
         null
     }
+  }
+
+  class CachedZoneOffset {
+    val cachedZoneOffset: AtomicReference[ZoneOffset] = new AtomicReference[ZoneOffset](defaultZoneOffset)
+
+    def recheck(): Unit = cachedZoneOffset.set(defaultZoneOffset)
+
+    def millisToOffsetDateTimeString(epochMillis: Long): String =
+      Instant.ofEpochMilli(epochMillis).atOffset(cachedZoneOffset.get()).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+    def parseDateTime(value: String): OffsetDateTime =
+      if (value.contains('T'))
+        OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+      else {
+        if (value.contains('.'))
+          LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS).atOffset(cachedZoneOffset.get())
+        else
+          LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER).atOffset(cachedZoneOffset.get())
+      }
+
+    def stringToMillis(value: String): Long =
+      parseDateTime(value).toInstant.toEpochMilli
   }
 
   def defaultZoneOffset: ZoneOffset = {
@@ -71,6 +94,12 @@ object DateTimeUtils {
       .replaceAll("(\\d[HMS])(?!$)", "$1 ")
       .toLowerCase
 
+  def millisToOffsetDateTimeString(epochMillis: Long): String =
+    Instant.ofEpochMilli(epochMillis).atOffset(defaultZoneOffset).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+  def offsetDateTimeStringToMillis(s: String): Long =
+    OffsetDateTime.parse(s, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toInstant.toEpochMilli
+
   def epochMillisToBeijingOffsetDateTimeString(epochMillis: Long): String =
     Instant.ofEpochMilli(epochMillis).atOffset(ZONE_OFFSET_BEIJING).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 
@@ -83,6 +112,9 @@ object DateTimeUtils {
       else
         LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER).atOffset(DateTimeUtils.defaultZoneOffset)
     }
+
+  def stringToMillis(value: String): Long =
+    parseDateTime(value).toInstant.toEpochMilli
 
   object BeijingConv {
     def millisToString(epochMillis: Long): String =
