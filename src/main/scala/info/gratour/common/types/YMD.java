@@ -8,6 +8,7 @@
 package info.gratour.common.types;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class YMD {
 
@@ -61,5 +62,18 @@ public class YMD {
                 ", month=" + month +
                 ", day=" + day +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        YMD ymd = (YMD) o;
+        return year == ymd.year && month == ymd.month && day == ymd.day;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, month, day);
     }
 }
