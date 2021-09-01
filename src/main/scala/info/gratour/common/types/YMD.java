@@ -8,6 +8,7 @@
 package info.gratour.common.types;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class YMD {
 
@@ -46,12 +47,26 @@ public class YMD {
         this.month = month;
     }
 
+    public String twoDigitMonth() {
+        if (month < 10)
+            return "0" + month;
+        else
+            return Integer.toString(month);
+    }
+
     public int getDay() {
         return day;
     }
 
     public void setDay(int day) {
         this.day = day;
+    }
+
+    public String twoDigitDay() {
+        if (day < 10)
+            return "0" + day;
+        else
+            return Integer.toString(day);
     }
 
     @Override
@@ -61,5 +76,18 @@ public class YMD {
                 ", month=" + month +
                 ", day=" + day +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        YMD ymd = (YMD) o;
+        return year == ymd.year && month == ymd.month && day == ymd.day;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, month, day);
     }
 }

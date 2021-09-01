@@ -80,9 +80,4 @@ object NetUtils {
   def isValidIp(ip: String): Boolean =
     InetAddressValidator.getInstance().isValid(ip)
 
-  def main(args: Array[String]): Unit = {
-    val addr = NetUtils.resolvePublicIp("gratour.info", "202.96.134.133")
-    println(s"resolver addr: ${addr.getHostAddress}")
-  }
-
 }
