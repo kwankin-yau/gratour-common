@@ -6,15 +6,12 @@ plugins {
 }
 
 group 'info.gratour.common'
-version '3.2.0'
+version '3.2.1'
 
 sourceCompatibility = 11
 
 compileJava.options.encoding = 'UTF-8'
 compileScala.options.encoding = 'UTF-8'
-
-//sourceSets.main.scala.srcDir "src/main/java"
-//sourceSets.main.java.srcDirs = []
 
 repositories {
     mavenLocal()
@@ -35,15 +32,9 @@ dependencies {
 
     api 'com.google.code.gson:gson:2.8.6'
 
-
-
-//    implementation 'dnsjava:dnsjava:2.1.8'// https://mvnrepository.com/artifact/dnsjava/dnsjava
     implementation group: 'dnsjava', name: 'dnsjava', version: '3.3.1'
 
-//    api group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
     testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-
-
 }
 
 task sourceJar(type: Jar) {

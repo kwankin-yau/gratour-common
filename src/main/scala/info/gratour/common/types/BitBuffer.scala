@@ -16,12 +16,6 @@ class BitBuffer(source: BitBufferSource) {
   private var buffer: Long = 0
   private var remainBits: Int = 0
 
-  //  def _readBits(bitCount: Int): Long = {
-  //    var r: Long = 0
-  //    r |=
-  //    r
-  //  }
-
   def readBits(bitCount: Int): Long = {
     if (bitCount > 64)
       throw new IllegalArgumentException("bitCount")

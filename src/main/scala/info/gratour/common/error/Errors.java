@@ -127,6 +127,9 @@ public class Errors {
     public static final int SERVICE_NOT_AVAILABLE = -106;
     public static final String MESSAGE_KEY_SERVICE_NOT_AVAILABLE = "errors.service_not_available";
 
+    public static final int SERVICE_BUSY = -107;
+    public static final String MESSAGE_KEY_SERVICE_BUSY = "errors.service_busy";
+
     // script errors
     public static final int BAD_FORMAT = -200;
     public static final String MESSAGE_KEY_BAD_FORMAT = "errors.bad_format";
@@ -279,8 +282,12 @@ public class Errors {
             case SERVICE_NOT_AVAILABLE:
                 return MESSAGE_KEY_SERVICE_NOT_AVAILABLE;
 
+            case SERVICE_BUSY:
+                return MESSAGE_KEY_SERVICE_BUSY;
+
             case NO_CONNECTION_AVAILABLE:
                 return MESSAGE_KEY_NO_CONNECTION_AVAILABLE;
+
 
             // script errors
             case BAD_FORMAT:
