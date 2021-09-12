@@ -1,2 +1,2 @@
 # Gratour common library
-written in scala
+A common library written in java/scala.
