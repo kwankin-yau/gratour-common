@@ -3,6 +3,7 @@ plugins {
     id 'scala'
     id 'maven'
     id 'maven-publish'
+    id 'signing'
 }
 
 group 'info.gratour.common'
@@ -56,6 +57,59 @@ publishing {
 
             artifact sourceJar {
                 classifier "sources"
+            }
+        }
+    }
+}
+
+artifacts {
+    archives sourceJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Gratour common library'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'A java/scala library contains utility class does not contained in famous library.'
+                url 'https://github.com/kwankin-yau/gratour-common'
+
+                scm {
+                    connection 'https://github.com/kwankin-yau/gratour-common.git'
+                    developerConnection 'https://github.com/kwankin-yau/gratour-common.git'
+                    url 'https://github.com/kwankin-yau/gratour-common'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'http://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'kky'
+                        name 'kwankin-yau'
+                        email 'alphax@vip.163.com'
+                    }
+                }
             }
         }
     }
