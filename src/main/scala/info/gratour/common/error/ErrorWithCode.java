@@ -57,4 +57,9 @@ public class ErrorWithCode extends RuntimeException {
         return new ErrorWithCode(Errors.INTERNAL_ERROR, message);
     }
 
+    public static ErrorWithCode format(int errCode, String formatArg) {
+        String message = Errors.errorMessageFormat(errCode, formatArg);
+        return new ErrorWithCode(errCode, message);
+    }
+
 }

@@ -21,16 +21,16 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    implementation 'org.scala-lang:scala-library:2.13.4'
-    implementation 'org.scala-lang:scala-reflect:2.13.4'
+    implementation 'org.scala-lang:scala-library:2.13.6'
+    implementation 'org.scala-lang:scala-reflect:2.13.6'
     implementation 'com.typesafe.scala-logging:scala-logging_2.13:3.9.2'
 
 
-    api 'org.apache.commons:commons-lang3:3.8.1'
-    api 'commons-io:commons-io:2.6'
+    api 'org.apache.commons:commons-lang3:3.11'
+    api 'commons-io:commons-io:2.9.0'
     api 'commons-validator:commons-validator:1.6'
 
-    api 'com.google.code.gson:gson:2.8.6'
+    api 'com.google.code.gson:gson:2.8.8'
 
     implementation group: 'dnsjava', name: 'dnsjava', version: '3.3.1'
 

@@ -101,6 +101,13 @@ public class Errors {
     public static final int NO_CONNECTION_AVAILABLE = -27;
     public static final String MESSAGE_KEY_NO_CONNECTION_AVAILABLE = "errors.no_connection_available";
 
+    public static final int CANCELED = -28;
+    public static final String MESSAGE_KEY_CANCELED = "errors.canceled";
+
+    public static final int CODEC_ERROR = -29;
+    public static final String MESSAGE_KEY_CODEC_ERROR = "errors.codec_error";
+    public static final String MESSAGE_KEY_CODEC_ERROR_FMT = "errors.codec_error_fmt";
+
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
     public static final String MESSAGE_KEY_SERVICE_ALREADY_STARTED = "errors.serv_already_started";
@@ -257,6 +264,12 @@ public class Errors {
             case RULE_VIOLATED:
                 return MESSAGE_KEY_RULE_VIOLATED;
 
+            case CANCELED:
+                return MESSAGE_KEY_CANCELED;
+
+            case CODEC_ERROR:
+                return MESSAGE_KEY_CODEC_ERROR;
+
             // service error
             case SERVICE_ALREADY_STARTED:
                 return MESSAGE_KEY_SERVICE_ALREADY_STARTED;
@@ -334,6 +347,9 @@ public class Errors {
             case INVALID_VALUE:
                 return MESSAGE_KEY_INVALID_VALUE_FMT;
 
+            case CODEC_ERROR:
+                return MESSAGE_KEY_CODEC_ERROR_FMT;
+
             default:
                 return messageKey(errorCode);
         }
@@ -365,4 +381,5 @@ public class Errors {
 
         return String.format(BUNDLE.getString(messageKey), arg);
     }
+
 }

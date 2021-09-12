@@ -177,6 +177,10 @@ public class Reply<T> extends RawReply {
         return error(e.getErrCode(), e.getMessage());
     }
 
+    public static <T> Reply<T> invalidParam(String paramName) {
+        return error(Errors.INVALID_PARAM, Errors.errorMessageFormat(Errors.INVALID_PARAM, paramName));
+    }
+
     @Override
     public String toString() {
         return "Resp{" +
