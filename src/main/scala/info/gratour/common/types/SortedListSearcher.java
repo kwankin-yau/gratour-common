@@ -7,9 +7,8 @@ import java.util.List;
 /**
  * 已排序列表搜索器
  *
+ * @param <T> item type
  * @author KwanKin Yau
- *
- * @param <T>
  */
 public class SortedListSearcher<T> {
 

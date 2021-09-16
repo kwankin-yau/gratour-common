@@ -50,6 +50,15 @@ task sourceJar(type: Jar) {
     from sourceSets.main.allSource
 }
 
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+javadoc {
+    options.encoding = 'UTF-8'
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
@@ -62,8 +71,10 @@ publishing {
     }
 }
 
+
+
 artifacts {
-    archives sourceJar
+    archives  javadocJar, sourceJar
 }
 
 signing {

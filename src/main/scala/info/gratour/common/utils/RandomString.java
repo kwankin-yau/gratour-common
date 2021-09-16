@@ -9,6 +9,7 @@ public class RandomString {
 
     /**
      * Generate a random string.
+     * @return random string which characters in symbols
      */
     public String nextString() {
         char[] buf = new char[length];
@@ -30,6 +31,13 @@ public class RandomString {
     private final char[] symbols;
     private final int length;
 
+    /**
+     * Create an alphanumeric string generator.
+     *
+     * @param length the of string returned by {@link RandomString#nextString()}
+     * @param random random object
+     * @param symbols the string character set
+     */
     public RandomString(int length, Random random, String symbols) {
         if (length < 1) throw new IllegalArgumentException();
         if (symbols.length() < 2) throw new IllegalArgumentException();
@@ -40,6 +48,8 @@ public class RandomString {
 
     /**
      * Create an alphanumeric string generator.
+     * @param length the of string returned by {@link RandomString#nextString()}
+     * @param random random object
      */
     public RandomString(int length, Random random) {
         this(length, random, alphanum);
@@ -47,6 +57,7 @@ public class RandomString {
 
     /**
      * Create an alphanumeric strings from a secure generator.
+     * @param length the of string returned by {@link RandomString#nextString()}
      */
     public RandomString(int length) {
         this(length, new SecureRandom());

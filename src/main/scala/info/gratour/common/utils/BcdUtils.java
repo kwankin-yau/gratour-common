@@ -94,8 +94,9 @@ public class BcdUtils {
 	 * Decodes a BCD encoded array back into a String containing decimal digits.
 	 * For instance 0x34 will be decoded as the string "34".
 	 *
-	 * @param b
-	 *            the input BCD encoded array
+	 * @param b the input BCD encoded array
+	 * @param offset the start offset of `b`
+	 * @param length the length/size of bcd content
 	 * @return The decoded, original string
 	 *
 	 */

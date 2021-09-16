@@ -21,7 +21,7 @@ public class IntRef {
 	/**
 	 * 取整数值
 	 *
-	 * @return
+	 * @return the value
 	 */
 	public int get() {
 		return value;
@@ -30,7 +30,7 @@ public class IntRef {
 	/**
 	 * 设整数值
 	 *
-	 * @param value
+	 * @param value the value
 	 */
 	public void set(int value) {
 		this.value = value;
