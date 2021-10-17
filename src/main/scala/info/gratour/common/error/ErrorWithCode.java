@@ -32,6 +32,10 @@ public class ErrorWithCode extends RuntimeException {
         return errCode;
     }
 
+    public boolean ok() {
+        return errCode == Errors.OK;
+    }
+
     public static ErrorWithCode OK = new ErrorWithCode(Errors.OK);
     public static ErrorWithCode INTERNAL_ERROR = new ErrorWithCode(Errors.INTERNAL_ERROR);
     public static ErrorWithCode AUTHENTICATION_FAILED = new ErrorWithCode(Errors.AUTHENTICATION_FAILED);
