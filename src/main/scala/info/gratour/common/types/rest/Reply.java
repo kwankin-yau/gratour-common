@@ -165,6 +165,14 @@ public class Reply<T> extends RawReply {
         return multi(data, data.size());
     }
 
+    public static <T> Reply<T> empty() {
+        Reply<T> r = new Reply<T>(Errors.OK);
+        @SuppressWarnings("unchecked")
+        T[] arr = (T[]) new Object[0];
+        r.setData(arr);
+        return r;
+    }
+
     public static <T> Reply<T> error(int errCode) {
         return error(errCode, Errors.errorMessage(errCode));
     }
@@ -175,6 +183,10 @@ public class Reply<T> extends RawReply {
 
     public static <T> Reply<T> error(ErrorWithCode e) {
         return error(e.getErrCode(), e.getMessage());
+    }
+
+    public static <T> Reply<T> error(RawReply err) {
+        return new Reply<>(err.getErrCode(), err.getMessage());
     }
 
     public static <T> Reply<T> invalidParam(String paramName) {

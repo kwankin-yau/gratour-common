@@ -1,9 +1,16 @@
 # [3.2.2] - 2021-10-15
 ## Changed
-- java version changed to 11
-## Added
-- ErrorWithCode added `ok()` method
+- Java version changed to 11.
+- Some methods defined in `Errors` introduce locale parameter.
+- Added `NetUtils.isLocalAddr()`, `NetUtils.isValidPortNum()`.
+- Added `ValidateResultReceiver` interface and some implementation.
+- Dependencies:
+  - `dnsjava:dnsjava:3.3.1` => `dnsjava:dnsjava:3.4.2`, due to dns selector does not shut down when vm terminate.
 
+## Added
+- ErrorWithCode added `ok()` method.
+- DateTimeUtils added `zoneIdOfOffsetHour`, `offsetDateTimeNowString()` methods.
+- Reply added `error(Reply)`, `empty()` methods.
 
 # [3.2.1] - 2021-09-05
 

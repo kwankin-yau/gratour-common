@@ -38,6 +38,20 @@ object DateTimeUtils {
     }
   }
 
+  /**
+   * Get ZoneId of specified zone offset(by hours).
+   *
+   * @return null if offset out of range.
+   */
+  def zoneIdOfOffsetHour(zoneOffsetHours: Int): ZoneId = {
+    try {
+      ZoneOffset.ofTotalSeconds(zoneOffsetHours * 60 * 60)
+    } catch {
+      case _: Exception =>
+        null
+    }
+  }
+
   class CachedZoneOffset {
     val cachedZoneOffset: AtomicReference[ZoneOffset] = new AtomicReference[ZoneOffset](defaultZoneOffset)
 
@@ -80,6 +94,12 @@ object DateTimeUtils {
 
   def convenientDateTimeFormat(epochMillis: Long): String = Instant.ofEpochMilli(epochMillis).atOffset(DEFAULT_ZONE_OFFSET).format(CONVENIENT_DATETIME_FORMATTER)
   def dateTimeToFileName(dt: LocalDateTime): String = dt.format(FILE_NAME_DATETIME_FORMATTER)
+
+  def offsetDateTimeNowString: String =
+    OffsetDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+  def offsetDateTimeNowString(zoneId: ZoneId): String =
+    OffsetDateTime.now().atZoneSameInstant(zoneId).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 
   /**
    * Produce format:

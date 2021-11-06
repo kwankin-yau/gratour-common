@@ -32,7 +32,7 @@ dependencies {
 
     api 'com.google.code.gson:gson:2.8.8'
 
-    implementation group: 'dnsjava', name: 'dnsjava', version: '3.3.1'
+    implementation('dnsjava:dnsjava:3.4.2')
 
     testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 }
