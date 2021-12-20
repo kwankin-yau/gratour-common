@@ -1,4 +1,13 @@
-# [3.2.2] - 2021-10-15
+# 3.2.3 - [2021-11-08]
+## Added
+- RawReply added `err(errCode)` and `err(errCode, message)` static method
+- added `RawReply.SERVICE_UNAVAILABLE`
+- added `Reply.INVALID_CONFIG`
+- added `FsIoUtils.folderFilesTotalSize`
+- added `EAbort`
+- added `CommonUtils.touch()`
+
+# 3.2.2 - 2021-10-15
 ## Changed
 - Java version changed to 11.
 - Some methods defined in `Errors` introduce locale parameter.

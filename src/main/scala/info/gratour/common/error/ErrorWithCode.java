@@ -2,7 +2,7 @@ package info.gratour.common.error;
 
 public class ErrorWithCode extends RuntimeException {
 
-    private int errCode;
+    private final int errCode;
 
     public ErrorWithCode(int errCode) {
         this(errCode, Errors.errorMessage(errCode), null);

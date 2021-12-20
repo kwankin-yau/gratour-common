@@ -180,7 +180,7 @@ object CommonUtils {
     r
   }
 
-
+  def touch(a: Any): Unit = {}
 }
 
 case class ByteArrayRange(arr: Array[Byte], offset: Int, length: Int)

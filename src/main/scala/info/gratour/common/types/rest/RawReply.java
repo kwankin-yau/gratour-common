@@ -74,6 +74,14 @@ public class RawReply {
                 '}';
     }
 
+    public static RawReply err(int errCode) {
+        return new RawReply(errCode);
+    }
+
+    public static RawReply err(int errCode, String message) {
+        return new RawReply(errCode, message);
+    }
+
     public static final RawReply OK = new RawReply(Errors.OK);
     public static final RawReply INTERNAL_ERROR = new RawReply(Errors.INTERNAL_ERROR);
     public static final RawReply AUTHENTICATION_FAILED = new RawReply(Errors.AUTHENTICATION_FAILED);
@@ -85,4 +93,5 @@ public class RawReply {
     public static final RawReply BAD_REQUEST = new RawReply(Errors.BAD_REQUEST);
     public static final RawReply HTTP_METHOD_NOT_SUPPORT = new RawReply(Errors.HTTP_METHOD_NOT_SUPPORT);
     public static final RawReply MISSING_REQUEST_PARAM = new RawReply(Errors.MISSING_REQUEST_PARAM);
+    public static final RawReply SERVICE_UNAVAILABLE = new RawReply(Errors.SERVICE_UNAVAILABLE);
 }

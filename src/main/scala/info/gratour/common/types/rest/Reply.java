@@ -127,7 +127,7 @@ public class Reply<T> extends RawReply {
 
     public static <T> Reply<T> single(T data) {
         if (data == null)
-            return new Reply<>(Errors.RECORD_NOT_FOUND);
+            return new Reply<T>(Errors.RECORD_NOT_FOUND);
 
         @SuppressWarnings("unchecked")
         T[] arr = (T[]) new Object[]{data};
@@ -186,7 +186,7 @@ public class Reply<T> extends RawReply {
     }
 
     public static <T> Reply<T> error(RawReply err) {
-        return new Reply<>(err.getErrCode(), err.getMessage());
+        return new Reply<T>(err.getErrCode(), err.getMessage());
     }
 
     public static <T> Reply<T> invalidParam(String paramName) {
@@ -221,4 +221,6 @@ public class Reply<T> extends RawReply {
     public static final Reply SESSION_EXPIRED = new Reply<>(Errors.SESSION_EXPIRED);
     @SuppressWarnings({"rawtypes"})
     public static final Reply BAD_REQUEST = new Reply<>(Errors.BAD_REQUEST);
+    @SuppressWarnings({"rawtypes"})
+    public static final Reply INVALID_CONFIG = new Reply<>(Errors.INVALID_CONFIG);
 }
