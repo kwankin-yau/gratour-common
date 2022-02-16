@@ -1,8 +1,15 @@
+/** *****************************************************************************
+ * Copyright (c) 2019, 2021 lucendar.com.
+ * All rights reserved.
+ *
+ * Contributors:
+ * KwanKin Yau (alphax@vip.163.com) - initial API and implementation
+ * ******************************************************************************/
 package info.gratour.common.error;
 
 public class ErrorWithCode extends RuntimeException {
 
-    private int errCode;
+    private final int errCode;
 
     public ErrorWithCode(int errCode) {
         this(errCode, Errors.errorMessage(errCode), null);
@@ -32,6 +39,10 @@ public class ErrorWithCode extends RuntimeException {
         return errCode;
     }
 
+    public boolean ok() {
+        return errCode == Errors.OK;
+    }
+
     public static ErrorWithCode OK = new ErrorWithCode(Errors.OK);
     public static ErrorWithCode INTERNAL_ERROR = new ErrorWithCode(Errors.INTERNAL_ERROR);
     public static ErrorWithCode AUTHENTICATION_FAILED = new ErrorWithCode(Errors.AUTHENTICATION_FAILED);
@@ -39,6 +50,7 @@ public class ErrorWithCode extends RuntimeException {
     public static ErrorWithCode ACCESS_DENIED = new ErrorWithCode(Errors.ACCESS_DENIED);
     public static ErrorWithCode NOT_ENOUGH_PRIV = new ErrorWithCode(Errors.NOT_ENOUGH_PRIV);
     public static ErrorWithCode RECORD_NOT_FOUND = new ErrorWithCode(Errors.RECORD_NOT_FOUND);
+    public static ErrorWithCode EXECUTION_ERROR = new ErrorWithCode(Errors.EXECUTION_ERROR);
 
     public static ErrorWithCode invalidParam(String paramName) {
         return new ErrorWithCode(Errors.INVALID_PARAM, Errors.errorMessageFormat(Errors.INVALID_PARAM, paramName));
@@ -52,9 +64,15 @@ public class ErrorWithCode extends RuntimeException {
     public static ErrorWithCode invalidValue(String fieldName) {
         return new ErrorWithCode(Errors.INVALID_VALUE, Errors.errorMessageFormat(Errors.INVALID_VALUE, fieldName));
     }
+
     public static ErrorWithCode internalError(String message) {
         message = Errors.errorMessage(Errors.INTERNAL_ERROR) + " " + message;
         return new ErrorWithCode(Errors.INTERNAL_ERROR, message);
+    }
+
+    public static ErrorWithCode format(int errCode, String formatArg) {
+        String message = Errors.errorMessageFormat(errCode, formatArg);
+        return new ErrorWithCode(errCode, message);
     }
 
 }

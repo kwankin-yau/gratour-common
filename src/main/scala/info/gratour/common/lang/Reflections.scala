@@ -1,3 +1,10 @@
+/** *****************************************************************************
+ * Copyright (c) 2019, 2021 lucendar.com.
+ * All rights reserved.
+ *
+ * Contributors:
+ * KwanKin Yau (alphax@vip.163.com) - initial API and implementation
+ * ******************************************************************************/
 package info.gratour.common.lang
 
 import java.lang
@@ -7,30 +14,30 @@ import info.gratour.common.types.EpochMillis
 
 object Reflections {
 
-  val JBoolean: Class[lang.Boolean] = classOf[java.lang.Boolean]
-  val JBooleanPrimitive: Class[lang.Boolean] = java.lang.Boolean.TYPE
-  val JByte: Class[lang.Byte] = classOf[java.lang.Byte]
-  val JBytePrimitive: Class[lang.Byte] = java.lang.Byte.TYPE
-  val JShort: Class[lang.Short] = classOf[java.lang.Short]
-  val JShortPrimitive: Class[lang.Short] = java.lang.Short.TYPE
-  val JInteger: Class[Integer] = classOf[java.lang.Integer]
-  val JIntegerPrimitive: Class[Integer] = java.lang.Integer.TYPE
-  val JLong: Class[lang.Long] = classOf[java.lang.Long]
-  val JLongPrimitive: Class[lang.Long] = java.lang.Long.TYPE
-  val JChar: Class[lang.Character] = classOf[java.lang.Character]
-  val JCharPrimitive: Class[lang.Character] = java.lang.Character.TYPE
-  val JString: Class[String] = classOf[java.lang.String]
-  val JFloat: Class[lang.Float] = classOf[java.lang.Float]
-  val JFloatPrimitive: Class[lang.Float] = java.lang.Float.TYPE
-  val JDouble: Class[lang.Double] = classOf[java.lang.Double]
-  val JDoublePrimitive: Class[lang.Double] = java.lang.Double.TYPE
-  val JBigDecimal: Class[java.math.BigDecimal] = classOf[java.math.BigDecimal]
-  val JLocalDate: Class[LocalDate] = classOf[LocalDate]
-  val JLocalTime: Class[LocalTime] = classOf[LocalTime]
-  val JLocalDateTime: Class[LocalDateTime] = classOf[LocalDateTime]
-  val JOffsetDateTime: Class[OffsetDateTime] = classOf[OffsetDateTime]
-  val JByteArray: Class[_] = JavaByteArray.BYTE_ARRAY_CLASS
-  val JIntArray: Class[_] = JavaIntArray.INT_ARRAY_CLASS
-  val JEpochMillis: Class[EpochMillis] = classOf[EpochMillis]
-  val JInputStream: Class[java.io.InputStream] = classOf[java.io.InputStream]
+  final val JBoolean: Class[lang.Boolean] = classOf[java.lang.Boolean]
+  final val JBooleanPrimitive: Class[lang.Boolean] = java.lang.Boolean.TYPE
+  final val JByte: Class[lang.Byte] = classOf[java.lang.Byte]
+  final val JBytePrimitive: Class[lang.Byte] = java.lang.Byte.TYPE
+  final val JShort: Class[lang.Short] = classOf[java.lang.Short]
+  final val JShortPrimitive: Class[lang.Short] = java.lang.Short.TYPE
+  final val JInteger: Class[Integer] = classOf[java.lang.Integer]
+  final val JIntegerPrimitive: Class[Integer] = java.lang.Integer.TYPE
+  final val JLong: Class[lang.Long] = classOf[java.lang.Long]
+  final val JLongPrimitive: Class[lang.Long] = java.lang.Long.TYPE
+  final val JChar: Class[lang.Character] = classOf[java.lang.Character]
+  final val JCharPrimitive: Class[lang.Character] = java.lang.Character.TYPE
+  final val JString: Class[String] = classOf[java.lang.String]
+  final val JFloat: Class[lang.Float] = classOf[java.lang.Float]
+  final val JFloatPrimitive: Class[lang.Float] = java.lang.Float.TYPE
+  final val JDouble: Class[lang.Double] = classOf[java.lang.Double]
+  final val JDoublePrimitive: Class[lang.Double] = java.lang.Double.TYPE
+  final val JBigDecimal: Class[java.math.BigDecimal] = classOf[java.math.BigDecimal]
+  final val JLocalDate: Class[LocalDate] = classOf[LocalDate]
+  final val JLocalTime: Class[LocalTime] = classOf[LocalTime]
+  final val JLocalDateTime: Class[LocalDateTime] = classOf[LocalDateTime]
+  final val JOffsetDateTime: Class[OffsetDateTime] = classOf[OffsetDateTime]
+  final val JByteArray: Class[_] = JavaByteArray.BYTE_ARRAY_CLASS
+  final val JIntArray: Class[_] = JavaIntArray.INT_ARRAY_CLASS
+  final val JEpochMillis: Class[EpochMillis] = classOf[EpochMillis]
+  final val JInputStream: Class[java.io.InputStream] = classOf[java.io.InputStream]
 }

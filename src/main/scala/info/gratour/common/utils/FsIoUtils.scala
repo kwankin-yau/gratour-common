@@ -3,8 +3,11 @@ package info.gratour.common.utils
 import java.io._
 import java.net.URL
 import java.util.function.Consumer
-
 import org.apache.commons.io.{FileUtils, FilenameUtils}
+
+import java.nio.file.attribute.BasicFileAttributes
+import java.nio.file.{FileVisitResult, Files, Path, Paths, SimpleFileVisitor}
+import java.util.concurrent.atomic.AtomicLong
 
 object FsIoUtils {
 
@@ -88,4 +91,32 @@ object FsIoUtils {
 
   }
 
+  /**
+   * 查询目录下的所有文件的大小总和，包括子目录
+   *
+   * @param dir 所要查询的目录
+   * @return 文件大小总和，字节
+   */
+  def folderFilesTotalSize(dir: String): Long = {
+    val sz = new AtomicLong(0)
+
+    try {
+      Files.walkFileTree(Paths.get(dir), new SimpleFileVisitor[Path]() {
+        override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
+          sz.addAndGet(attrs.size())
+          FileVisitResult.CONTINUE
+        }
+
+        override def visitFileFailed(file: Path, exc: IOException): FileVisitResult = FileVisitResult.CONTINUE
+
+        override def postVisitDirectory(dir: Path, exc: IOException): FileVisitResult = FileVisitResult.CONTINUE
+      })
+    } catch {
+      case _: Throwable =>
+    }
+
+    sz.get()
+  }
+
 }
+

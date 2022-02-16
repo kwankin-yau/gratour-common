@@ -12,7 +12,7 @@ import scala.util.{Failure, Success, Try}
 
 object CommonUtils {
 
-  val ResLeakDetectLogger: Logger = Logger("ResLeakDetect")
+  final val ResLeakDetectLogger: Logger = Logger("ResLeakDetect")
 
 
 
@@ -23,7 +23,7 @@ object CommonUtils {
       }
 
 
-  private val random = new Random(System.nanoTime)
+  private final val random = new Random(System.nanoTime)
 
   def randomBytes(bytes: Array[Byte]): Unit = {
     random.nextBytes(bytes)
@@ -180,7 +180,7 @@ object CommonUtils {
     r
   }
 
-
+  def touch(a: Any): Unit = {}
 }
 
 case class ByteArrayRange(arr: Array[Byte], offset: Int, length: Int)

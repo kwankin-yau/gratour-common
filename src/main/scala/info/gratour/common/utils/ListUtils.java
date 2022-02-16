@@ -21,7 +21,6 @@ public class ListUtils {
     /**
      * 对已排序列表进行元素查找。
      *
-     * @param <T> 元素类型
      * @param list
      *            给定的列表。元素为T类型。
      * @param key
@@ -34,9 +33,9 @@ public class ListUtils {
      *            索引号引用。如果不为null，则返回元素在列表中的索引号，元素未找到时，返回-1。
      * @return 找到的元素。如找不到，则返回null。
      */
-    public static <T> T sortedListSearch(final List<T> list,
-                                         final Object key, final Comparator<Object> comparator,
-                                         final boolean descending, final IntRef outIndex) {
+    public static final <T> T sortedListSearch(final List<T> list,
+                                               final Object key, final Comparator<Object> comparator,
+                                               final boolean descending, final IntRef outIndex) {
         if (list.size() == 0) {
             if (outIndex != null)
                 outIndex.set(-1);
@@ -83,7 +82,6 @@ public class ListUtils {
     /**
      * 对已排序列表进行元素查找大于（或等于）给定键值的元素。
      *
-     * @param <T> 元素类型
      * @param list
      *            给定的列表。元素为T类型。
      * @param minKey
@@ -96,12 +94,12 @@ public class ListUtils {
      *            索引号引用。如果不为null，则返回元素在列表中的索引号，元素未找到时，返回-1。
      * @param lowCond
      *            小值比较条件（大于等于）。
-     * @return 大于（或等于）给定键值的元素，如果没有找到，则返回null
+     * @return
      */
-    public static <T> T sortedListSearchLower(final List<T> list,
-                                              final Object minKey, final Comparator<Object> comparator,
-                                              final boolean descending, final RangeSearchLowCondition lowCond,
-                                              final IntRef outIndex) {
+    public static final <T> T sortedListSearchLower(final List<T> list,
+                                                    final Object minKey, final Comparator<Object> comparator,
+                                                    final boolean descending, final RangeSearchLowCondition lowCond,
+                                                    final IntRef outIndex) {
         if (list.size() == 0) {
             if (outIndex != null)
                 outIndex.set(-1);
@@ -156,7 +154,6 @@ public class ListUtils {
     /**
      * 对已排序列表进行元素查找小于（或等于）给定键值的元素。
      *
-     * @param <T> 元素的类型
      * @param list
      *            给定的列表。元素为T类型。
      * @param minKey
@@ -169,12 +166,12 @@ public class ListUtils {
      *            索引号引用。如果不为null，则返回元素在列表中的索引号，元素未找到时，返回-1。
      * @param highCond
      *            大值比较条件（小于等于）。
-     * @return 小于（或等于）给定键值的元素；如果没有找到，则返回null
+     * @return
      */
-    public static <T> T sortedListSearchLE(final List<T> list,
-                                           final Object minKey, final Comparator<Object> comparator,
-                                           final boolean descending, final RangeSearchHighCondition highCond,
-                                           final IntRef outIndex) {
+    public static final <T> T sortedListSearchLE(final List<T> list,
+                                                 final Object minKey, final Comparator<Object> comparator,
+                                                 final boolean descending, final RangeSearchHighCondition highCond,
+                                                 final IntRef outIndex) {
         if (list.size() == 0) {
             if (outIndex != null)
                 outIndex.set(-1);
@@ -227,20 +224,20 @@ public class ListUtils {
     }
 
     /**
-     * 对已排序列表进行范围搜索（限定上、下限搜索）。
-     * @param <T> 元素类型
-     * @param list 已排序的列表
-     * @param comparator 比较器
-     * @param minKey 范围搜索的下限值
-     * @param lowCond 下限比较条件
-     * @param maxKey 范围搜索的上限值
-     * @param highCond 上限比较条件
-     * @return 搜索到的元素列表，没有找到时，返回空列表
+     * 对已排序列表进行范围搜索。
+     *
+     * @param list
+     * @param comparator
+     * @param minKey
+     * @param lowCond
+     * @param maxKey
+     * @param highCond
+     * @return
      */
-    public static <T> List<T> sortedListRangeSearch(final List<T> list,
-                                                    final Comparator<Object> comparator, final Object minKey,
-                                                    final RangeSearchLowCondition lowCond, final Object maxKey,
-                                                    final RangeSearchHighCondition highCond) {
+    public static final <T> List<T> sortedListRangeSearch(final List<T> list,
+                                                          final Comparator<Object> comparator, final Object minKey,
+                                                          final RangeSearchLowCondition lowCond, final Object maxKey,
+                                                          final RangeSearchHighCondition highCond) {
 
         if (list == null || comparator == null)
             throw new IllegalArgumentException();
@@ -321,19 +318,18 @@ public class ListUtils {
     }
 
     /**
-     * 对已排序列表进行范围搜索（只限定下限值搜索）。
+     * 对已排序列表进行范围搜索。
      *
-     * @param <T> 元素类型
-     * @param list 已排序的列表
-     * @param comparator 比较器
-     * @param minKey 下限值
-     * @param lowCond 下限比较条件
-     * @param outIndex 第一个符合条件的元素在list中的序号(0开始)
-     * @return 符合条件的元素列表。如果没有符合条件的元素，则返回空列表
+     * @param list
+     * @param comparator
+     * @param minKey
+     * @param lowCond
+     * @param outIndex
+     * @return
      */
-    public static <T> T sortedListRangeSearch(final List<T> list,
-                                              final Comparator<Object> comparator, final Object minKey,
-                                              final RangeSearchLowCondition lowCond, final IntRef outIndex) {
+    public static final <T> T sortedListRangeSearch(final List<T> list,
+                                                    final Comparator<Object> comparator, final Object minKey,
+                                                    final RangeSearchLowCondition lowCond, final IntRef outIndex) {
 
         if (list == null || comparator == null)
             throw new IllegalArgumentException();
@@ -382,17 +378,16 @@ public class ListUtils {
     /**
      * 对已排序列表进行范围搜索。
      *
-     * @param <T> 元素类型
-     * @param list  已排序的列表
-     * @param comparator 比较器
-     * @param maxKey 上限值
-     * @param highCond 上限比较条件
-     * @param outIndex 最后一个符合条件的元素在list中的序号(0开始，最大的值的序号)
-     * @return 符合条件的元素列表。如果没有符合条件的元素，则返回空列表
+     * @param list
+     * @param comparator
+     * @param maxKey
+     * @param highCond
+     * @param outIndex
+     * @return
      */
-    public static <T> T sortedListRangeSearch(final List<T> list,
-                                              final Comparator<Object> comparator, final Object maxKey,
-                                              final RangeSearchHighCondition highCond, final IntRef outIndex) {
+    public static final <T> T sortedListRangeSearch(final List<T> list,
+                                                    final Comparator<Object> comparator, final Object maxKey,
+                                                    final RangeSearchHighCondition highCond, final IntRef outIndex) {
 
         if (list == null || comparator == null)
             throw new IllegalArgumentException();
@@ -421,6 +416,7 @@ public class ListUtils {
                 searcher.setCurrentAsResult();
                 searcher.rightSide();
             } else {
+                // r > 0
                 searcher.leftSide();
             }
         }

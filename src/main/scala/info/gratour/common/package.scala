@@ -1,3 +1,10 @@
+/** *****************************************************************************
+ * Copyright (c) 2019, 2021 lucendar.com.
+ * All rights reserved.
+ *
+ * Contributors:
+ * KwanKin Yau (alphax@vip.163.com) - initial API and implementation
+ * ******************************************************************************/
 package info.gratour
 
 import java.util.concurrent.TimeUnit
@@ -7,28 +14,6 @@ import scala.concurrent.{Await, Future}
 import scala.util.matching.Regex
 
 package object common {
-
-  //  implicit class ListFinder[+T](list: java.util.List[T]) {
-  //    def find(p: T => Boolean): Option[T] = {
-  //      for (i <- 0 until list.size()) {
-  //        val t = list.get(i)
-  //        if (p(t))
-  //          return Some(t)
-  //      }
-  //
-  //      None
-  //    }
-  //
-  //    def exists(p: T => Boolean): Boolean = {
-  //      for (i <- 0 until list.size()) {
-  //        val t = list.get(i)
-  //        if (p(t))
-  //          return true
-  //      }
-  //
-  //      false
-  //    }
-  //  }
 
   implicit class CollectionFinder[+T](collection: java.util.Collection[T]) {
     def find(p: T => Boolean): Option[T] = {

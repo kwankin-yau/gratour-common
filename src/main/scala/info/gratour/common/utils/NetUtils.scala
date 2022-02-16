@@ -7,9 +7,8 @@
  * ******************************************************************************/
 package info.gratour.common.utils
 
-import java.net.{InetAddress, UnknownHostException}
+import java.net.{InetAddress, NetworkInterface, UnknownHostException}
 import java.util.concurrent.ConcurrentHashMap
-
 import org.apache.commons.validator.routines.InetAddressValidator
 import org.xbill.DNS.{ARecord, Address, Lookup, Options, Record, SimpleResolver, Type}
 
@@ -25,7 +24,10 @@ object NetUtils {
   def resolvePublicIp(host: String): InetAddress =
     Address.getByName(host)
 
-  private val resolverMap = new ConcurrentHashMap[String, SimpleResolver]()
+  private final val resolverMap = new ConcurrentHashMap[String, SimpleResolver]()
+  def shutdownDnsSelector(): Unit = {
+    org.xbill.DNS.NioClient.close()
+  }
 
 
   /**
@@ -64,7 +66,7 @@ object NetUtils {
     try {
       addr = InetAddress.getByName(ip)
     } catch {
-      case e: UnknownHostException =>
+      case _: UnknownHostException =>
         return false
     }
 
@@ -80,4 +82,20 @@ object NetUtils {
   def isValidIp(ip: String): Boolean =
     InetAddressValidator.getInstance().isValid(ip)
 
+  def isLocalAddr(addr: String): Boolean = {
+    try {
+      // Check if the address is a valid special local or loop back
+      val inetAddr = InetAddress.getByName(addr)
+      if (inetAddr.isAnyLocalAddress || inetAddr.isLoopbackAddress)
+        return true
+
+      // Check if the address is defined on any interface
+      NetworkInterface.getByInetAddress(inetAddr) != null
+    } catch {
+      case _: Throwable =>
+        false
+    }
+  }
+
+  def isValidPortNum(port: Int): Boolean = port > 0 && port < 65536
 }

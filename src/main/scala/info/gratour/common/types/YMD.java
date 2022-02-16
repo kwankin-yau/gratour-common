@@ -47,6 +47,13 @@ public class YMD {
         this.month = month;
     }
 
+    public String twoDigitMonth() {
+        if (month < 10)
+            return "0" + month;
+        else
+            return Integer.toString(month);
+    }
+
     public int getDay() {
         return day;
     }
@@ -55,20 +62,12 @@ public class YMD {
         this.day = day;
     }
 
-    public String twoDigitMonth() {
-        if (month < 10)
-            return "0" + month;
-        else
-            return Integer.toString(month);
-    }
-
     public String twoDigitDay() {
         if (day < 10)
             return "0" + day;
         else
             return Integer.toString(day);
     }
-
 
     @Override
     public String toString() {

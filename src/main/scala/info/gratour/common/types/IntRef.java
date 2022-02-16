@@ -1,11 +1,10 @@
-/*******************************************************************************
- *  Copyright (c) 2002, 2013 E-EYE High Tech.
- *  All rights reserved.
+/** *****************************************************************************
+ * Copyright (c) 2019, 2021 lucendar.com.
+ * All rights reserved.
  *
- *  Contributors:
- *     KwanKin Yau (alphax@vip.163.com) - initial API and implementation
- *******************************************************************************/
-
+ * Contributors:
+ * KwanKin Yau (alphax@vip.163.com) - initial API and implementation
+ * ******************************************************************************/
 package info.gratour.common.types;
 
 /**
@@ -21,7 +20,7 @@ public class IntRef {
 	/**
 	 * 取整数值
 	 *
-	 * @return the value
+	 * @return
 	 */
 	public int get() {
 		return value;
@@ -30,7 +29,7 @@ public class IntRef {
 	/**
 	 * 设整数值
 	 *
-	 * @param value the value
+	 * @param value
 	 */
 	public void set(int value) {
 		this.value = value;

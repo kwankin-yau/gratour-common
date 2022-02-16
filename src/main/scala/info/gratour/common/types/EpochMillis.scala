@@ -1,5 +1,5 @@
 /** *****************************************************************************
- * Copyright (c) 2019, 2020 lucendar.com.
+ * Copyright (c) 2019, 2021 lucendar.com.
  * All rights reserved.
  *
  * Contributors:

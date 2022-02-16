@@ -1,8 +1,14 @@
+/** *****************************************************************************
+ * Copyright (c) 2019, 2021 lucendar.com.
+ * All rights reserved.
+ *
+ * Contributors:
+ * KwanKin Yau (alphax@vip.163.com) - initial API and implementation
+ * ******************************************************************************/
 package info.gratour.common.error;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.concurrent.RecursiveTask;
 
 public class Errors {
 
@@ -101,6 +107,13 @@ public class Errors {
     public static final int NO_CONNECTION_AVAILABLE = -27;
     public static final String MESSAGE_KEY_NO_CONNECTION_AVAILABLE = "errors.no_connection_available";
 
+    public static final int CANCELED = -28;
+    public static final String MESSAGE_KEY_CANCELED = "errors.canceled";
+
+    public static final int CODEC_ERROR = -29;
+    public static final String MESSAGE_KEY_CODEC_ERROR = "errors.codec_error";
+    public static final String MESSAGE_KEY_CODEC_ERROR_FMT = "errors.codec_error_fmt";
+
     // service errors
     public static final int SERVICE_ALREADY_STARTED = -100;
     public static final String MESSAGE_KEY_SERVICE_ALREADY_STARTED = "errors.serv_already_started";
@@ -124,8 +137,24 @@ public class Errors {
     public static final int MISSING_REQUEST_PARAM = -105;
     public static final String MESSAGE_KEY_MISSING_REQUEST_PARAM = "errors.missing_request_param";
 
-    public static final int SERVICE_NOT_AVAILABLE = -106;
-    public static final String MESSAGE_KEY_SERVICE_NOT_AVAILABLE = "errors.service_not_available";
+    public static final int SERVICE_UNAVAILABLE = -106;
+    public static final String MESSAGE_KEY_SERVICE_UNAVAILABLE = "errors.service_not_available";
+
+
+    /**
+     * @deprecated Use {@link #SERVICE_UNAVAILABLE} instead
+     */
+    @Deprecated
+    public static final int SERVICE_NOT_AVAILABLE = SERVICE_UNAVAILABLE;
+
+    /**
+     * @deprecated Use {@link #MESSAGE_KEY_SERVICE_UNAVAILABLE} instead
+     */
+    @Deprecated
+    public static final String MESSAGE_KEY_SERVICE_NOT_AVAILABLE = MESSAGE_KEY_SERVICE_UNAVAILABLE;
+
+    public static final int SERVICE_BUSY = -107;
+    public static final String MESSAGE_KEY_SERVICE_BUSY = "errors.service_busy";
 
     // script errors
     public static final int BAD_FORMAT = -200;
@@ -254,6 +283,12 @@ public class Errors {
             case RULE_VIOLATED:
                 return MESSAGE_KEY_RULE_VIOLATED;
 
+            case CANCELED:
+                return MESSAGE_KEY_CANCELED;
+
+            case CODEC_ERROR:
+                return MESSAGE_KEY_CODEC_ERROR;
+
             // service error
             case SERVICE_ALREADY_STARTED:
                 return MESSAGE_KEY_SERVICE_ALREADY_STARTED;
@@ -276,11 +311,15 @@ public class Errors {
             case MISSING_REQUEST_PARAM:
                 return MESSAGE_KEY_MISSING_REQUEST_PARAM;
 
-            case SERVICE_NOT_AVAILABLE:
-                return MESSAGE_KEY_SERVICE_NOT_AVAILABLE;
+            case SERVICE_UNAVAILABLE:
+                return MESSAGE_KEY_SERVICE_UNAVAILABLE;
+
+            case SERVICE_BUSY:
+                return MESSAGE_KEY_SERVICE_BUSY;
 
             case NO_CONNECTION_AVAILABLE:
                 return MESSAGE_KEY_NO_CONNECTION_AVAILABLE;
+
 
             // script errors
             case BAD_FORMAT:
@@ -327,35 +366,53 @@ public class Errors {
             case INVALID_VALUE:
                 return MESSAGE_KEY_INVALID_VALUE_FMT;
 
+            case CODEC_ERROR:
+                return MESSAGE_KEY_CODEC_ERROR_FMT;
+
             default:
                 return messageKey(errorCode);
         }
     }
 
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("info.gratour.common.messages", Locale.getDefault(), Errors.class.getClassLoader());
+    private static ResourceBundle resourceBundle(Locale locale) {
+        return ResourceBundle.getBundle("info.gratour.common.messages", locale != null ? locale : Locale.getDefault());
+    }
 
-
-    public static String errorMessage(int errorCode) {
+    public static String errorMessage(int errorCode, Locale locale) {
         String key = messageKey(errorCode);
         if (key == null)
-            return errorMessageFormat(MESSAGE_KEY_UNKNOWN_ERROR_CODE_FMT, String.valueOf(errorCode));
+            return errorMessageFormat(MESSAGE_KEY_UNKNOWN_ERROR_CODE_FMT, String.valueOf(errorCode), locale);
 
-        return BUNDLE.getString(key);
+        return resourceBundle(locale).getString(key);
+    }
+
+    public static String errorMessage(int errorCode) {
+        return errorMessage(errorCode, Locale.getDefault());
     }
 
 
-    public static String errorMessageFormat(String messageKey, String arg) {
+    public static String errorMessageFormat(String messageKey, String arg, Locale locale) {
         if (messageKey == null)
             return "Unknown error.";
 
-        return String.format(BUNDLE.getString(messageKey), arg);
+        return String.format(resourceBundle(locale).getString(messageKey), arg);
     }
 
-    public static String errorMessageFormat(int errorCode, String arg) {
+    public static String errorMessageFormat(int errorCode, String arg, Locale locale) {
         String messageKey = messageFormatKey(errorCode);
         if (messageKey == null)
             return "Unknown error.";
 
-        return String.format(BUNDLE.getString(messageKey), arg);
+        return String.format(resourceBundle(locale).getString(messageKey), arg);
     }
+
+
+    public static String errorMessageFormat(String messageKey, String arg) {
+        return errorMessageFormat(messageKey, arg, Locale.getDefault());
+    }
+
+    public static String errorMessageFormat(int errorCode, String arg) {
+        return errorMessageFormat(errorCode, arg, Locale.getDefault());
+    }
+
 }

@@ -304,6 +304,21 @@ object StringUtils {
     else
       cStr(bytes, bytes.length, charset)
 
+  def strMaxLen(bytes: Array[Byte], offset: Int, maxLen: Int, charset: Charset): String = {
+    var l = maxLen
+    var break: Boolean = false
+    for (i <- 0 until maxLen if !break) {
+      val b = bytes(i + offset)
+      if (b == 0) {
+        l = i
+        break = true
+      }
+    }
+
+    new String(bytes, offset, l, charset)
+  }
+
+
   def leftPad(str: String, size: Int, padChar: Char): String = org.apache.commons.lang3.StringUtils.leftPad(str, size, padChar)
 
   def rightPad(str: String, size: Int, padChar: Char): String = org.apache.commons.lang3.StringUtils.rightPad(str, size, padChar)

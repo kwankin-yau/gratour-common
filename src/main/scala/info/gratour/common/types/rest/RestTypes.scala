@@ -41,8 +41,8 @@ case class Pagination(
 }
 
 object Pagination {
-  val DEFAULT: Pagination = Pagination(20, 1)
-  val FIRST_ONE: Pagination = Pagination(1, 1)
+  final val DEFAULT: Pagination = Pagination(20, 1)
+  final val FIRST_ONE: Pagination = Pagination(1, 1)
 
   def pageCount(totalRecordCount: Long, pageSize: Int): Long = {
     var r = totalRecordCount / pageSize

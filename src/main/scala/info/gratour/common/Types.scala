@@ -1,46 +1,46 @@
+/** *****************************************************************************
+ * Copyright (c) 2019, 2021 lucendar.com.
+ * All rights reserved.
+ *
+ * Contributors:
+ * KwanKin Yau (alphax@vip.163.com) - initial API and implementation
+ * ******************************************************************************/
 package info.gratour.common
 
-import java.time.{LocalDate, LocalDateTime, LocalTime, OffsetDateTime}
-
-import info.gratour.common.lang.JavaByteArray
 import info.gratour.common.types.EpochMillis
 
+import java.time.{LocalDate, LocalDateTime, LocalTime, OffsetDateTime}
 import scala.reflect.runtime.universe
 import scala.reflect.runtime.universe._
 
 object Types {
 
-  val BoolType: universe.Type = typeTag[Boolean].tpe
-  val ByteType: universe.Type = typeTag[Byte].tpe
-  val ShortType: universe.Type = typeTag[Short].tpe
-  val IntType: universe.Type = typeTag[Int].tpe
-  val LongType: universe.Type = typeTag[Long].tpe
-  val CharType: universe.Type = typeTag[Char].tpe
-  val StringType: universe.Type = typeTag[String].tpe
-  val FloatType: universe.Type = typeTag[Float].tpe
-  val DoubleType: universe.Type = typeTag[Double].tpe
+  final val BoolType: universe.Type = typeTag[Boolean].tpe
+  final val ByteType: universe.Type = typeTag[Byte].tpe
+  final val ShortType: universe.Type = typeTag[Short].tpe
+  final val IntType: universe.Type = typeTag[Int].tpe
+  final val LongType: universe.Type = typeTag[Long].tpe
+  final val CharType: universe.Type = typeTag[Char].tpe
+  final val StringType: universe.Type = typeTag[String].tpe
+  final val FloatType: universe.Type = typeTag[Float].tpe
+  final val DoubleType: universe.Type = typeTag[Double].tpe
 
-  val JBooleanType: universe.Type = typeTag[java.lang.Boolean].tpe
-  val JByteType: universe.Type = typeTag[java.lang.Byte].tpe
-  val JShortType: universe.Type = typeTag[java.lang.Short].tpe
-  val JIntegerType: universe.Type = typeTag[java.lang.Integer].tpe
-  val JLongType: universe.Type = typeTag[java.lang.Long].tpe
-  val JCharacterType: universe.Type = typeTag[java.lang.Character].tpe
+  final val JBooleanType: universe.Type = typeTag[java.lang.Boolean].tpe
+  final val JByteType: universe.Type = typeTag[java.lang.Byte].tpe
+  final val JShortType: universe.Type = typeTag[java.lang.Short].tpe
+  final val JIntegerType: universe.Type = typeTag[java.lang.Integer].tpe
+  final val JLongType: universe.Type = typeTag[java.lang.Long].tpe
+  final val JCharacterType: universe.Type = typeTag[java.lang.Character].tpe
 
 
-  // note: JStringType =:= StringType
-//  val JStringType: universe.Type = typeTag[java.lang.String].tpe
+  final val JFloatType: universe.Type = typeTag[java.lang.Float].tpe
+  final val JDoubleType: universe.Type = typeTag[java.lang.Double].tpe
+  final val JBigDecimalType: universe.Type = typeTag[java.math.BigDecimal].tpe
+  final val LocalDateType: universe.Type = typeTag[LocalDate].tpe
+  final val LocalTimeType: universe.Type = typeTag[LocalTime].tpe
+  final val LocalDateTimeType: universe.Type = typeTag[LocalDateTime].tpe
+  final val OffsetDateTimeType: universe.Type = typeTag[OffsetDateTime].tpe
+  final val EpochMillisType: universe.Type = typeTag[EpochMillis].tpe
 
-  val JFloatType: universe.Type = typeTag[java.lang.Float].tpe
-  val JDoubleType: universe.Type = typeTag[java.lang.Double].tpe
-  val JBigDecimalType: universe.Type = typeTag[java.math.BigDecimal].tpe
-  val LocalDateType: universe.Type = typeTag[LocalDate].tpe
-  val LocalTimeType: universe.Type = typeTag[LocalTime].tpe
-  val LocalDateTimeType: universe.Type = typeTag[LocalDateTime].tpe
-  val OffsetDateTimeType: universe.Type = typeTag[OffsetDateTime].tpe
-  val EpochMillisType: universe.Type = typeTag[EpochMillis].tpe
-
-  val InputStreamType: universe.Type = typeTag[java.io.InputStream].tpe
-
-//  val ByteArrayType: universe.Type = typeTag[JavaByteArray.BYTE]
+  final val InputStreamType: universe.Type = typeTag[java.io.InputStream].tpe
 }

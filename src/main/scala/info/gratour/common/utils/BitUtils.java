@@ -257,9 +257,9 @@ public class BitUtils {
     /**
      * Get right <code>nBits</code> bits of given <code>value</code>.
      *
-     * @param value the value to calculate
-     * @param nBits how many bits want to return
-     * @return the masked request bits
+     * @param value
+     * @param nBits
+     * @return
      */
     public static long rightBits(long value, int nBits) {
         if (nBits < 0 || nBits > 64)
@@ -271,10 +271,10 @@ public class BitUtils {
     /**
      * First get <code>nBits</code> of <code>value</code>, and then shift right <code>shiftRightNBits</code>.
      *
-     * @param value the value to calculate
-     * @param nBits how many bits want to return
-     * @param shiftRightNBits how many bits want to shift right
-     * @return the right shifted bits
+     * @param value
+     * @param nBits
+     * @param shiftRightNBits
+     * @return
      */
     public static long shiftRight(long value, int nBits, int shiftRightNBits) {
         value = rightBits(value, nBits);

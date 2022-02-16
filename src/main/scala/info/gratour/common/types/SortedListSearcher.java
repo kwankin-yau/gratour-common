@@ -1,3 +1,10 @@
+/** *****************************************************************************
+ * Copyright (c) 2019, 2021 lucendar.com.
+ * All rights reserved.
+ *
+ * Contributors:
+ * KwanKin Yau (alphax@vip.163.com) - initial API and implementation
+ * ******************************************************************************/
 package info.gratour.common.types;
 
 import java.util.Comparator;
@@ -7,13 +14,11 @@ import java.util.List;
 /**
  * 已排序列表搜索器
  *
- * @param <T> item type
  * @author KwanKin Yau
+ *
+ * @param <T>
  */
 public class SortedListSearcher<T> {
-
-//	private static final Logger LOGGER = LoggerFactory
-//			.getLogger(SortedListSearcher.class);
 
 	private List<T> sortedList;
 	private Comparator<Object> comparator;
@@ -37,10 +42,6 @@ public class SortedListSearcher<T> {
 		resultIndex = -1;
 
 		stopped = maxIndex < minIndex;
-
-//		if (LOGGER.isDebugEnabled())
-//			LOGGER.debug("key=" + key + ", minIndex=" + minIndex
-//					+ ", maxIndex=" + maxIndex + ", i=" + i);
 	}
 
 	public void setMinIndex(int minIndex) {
@@ -62,8 +63,6 @@ public class SortedListSearcher<T> {
 		}
 
 		Object t = sortedList.get(i);
-//		if (LOGGER.isDebugEnabled())
-//			LOGGER.debug("compare to :" + t);
 		return -comparator.compare(key, t);
 	}
 
@@ -77,7 +76,6 @@ public class SortedListSearcher<T> {
 		else {
 			maxIndex = i - 1;
 			i = (minIndex + maxIndex) / 2;
-//			LOGGER.debug("maxIndex=" + maxIndex + ", i=" + i);
 		}
 	}
 
@@ -87,13 +85,11 @@ public class SortedListSearcher<T> {
 		else {
 			minIndex = i + 1;
 			i = (minIndex + maxIndex) / 2;
-//			LOGGER.debug("minIndex=" + minIndex + ", i=" + i);
 		}
 	}
 
 	public void setCurrentAsResult() {
 		resultIndex = i;
-//		LOGGER.debug("setResult=" + resultIndex);
 	}
 
 	public int getResultIndex() {
