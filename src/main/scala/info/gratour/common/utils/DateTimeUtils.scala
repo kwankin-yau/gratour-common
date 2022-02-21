@@ -1,7 +1,7 @@
 package info.gratour.common.utils
 
 import java.time.format.DateTimeFormatter
-import java.time.{Clock, Duration, Instant, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
+import java.time.{Clock, Duration, Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
 import java.util.Locale
 import java.util.concurrent.atomic.AtomicReference
 
@@ -136,6 +136,18 @@ object DateTimeUtils {
   def stringToMillis(value: String): Long =
     parseDateTime(value).toInstant.toEpochMilli
 
+  def tryStringToDate(s: String): LocalDate = {
+    if (s != null) {
+      try {
+        LocalDate.parse(s, DateTimeFormatter.ISO_LOCAL_DATE)
+      } catch {
+        case _: Throwable =>
+          null
+      }
+    } else
+      null
+  }
+
   object BeijingConv {
     def millisToString(epochMillis: Long): String =
       Instant.ofEpochMilli(epochMillis).atOffset(ZONE_OFFSET_BEIJING).format(CONVENIENT_DATETIME_FORMATTER)
@@ -187,6 +199,8 @@ object DateTimeUtils {
       } else
         null
     }
+
+
 
   }
 
