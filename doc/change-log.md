@@ -1,9 +1,10 @@
 # 3.2.4 - [2022-01-02]
 ## Improvement
-- Added `StringUtils.strMaxLen()`
-- Added `RawReply.invalidParamRaw()`, `RawReply.TIMEOUT`, `Reply.TIMEOUT`, `ErrorWithCode.EXECUTION_ERROR`, `RawReply.EXECUTION_ERROR`
-- Added `DateTimeUtils.tryStringToDate`
-- Added `BeijingConv.tryStringToMillis`, `BeijingConv.tryStringToSeconds`, `BeijingConv.tryStringToOffsetDateTime`
+- `StringUtils.strMaxLen()` added.
+- `RawReply.invalidParamRaw()`, `RawReply.TIMEOUT`, `Reply.TIMEOUT`, `ErrorWithCode.EXECUTION_ERROR`, `RawReply.EXECUTION_ERROR` added.
+- `DateTimeUtils.tryStringToDate` added.
+- `BeijingConv.tryStringToMillis`, `BeijingConv.tryStringToSeconds`, `BeijingConv.tryStringToOffsetDateTime` added.
+- `JsonUtils` introduced. 
 - Mark many scala constant to `final` to suggest compiler make inline optimization
 
 ## Fixed
