@@ -9,11 +9,11 @@ package info.gratour.common.types.validate;
 
 abstract public class AbstractValidateResultReceiver implements ValidateResultReceiver {
 
-    protected boolean error;
+    protected boolean err;
 
     @Override
     public boolean ok() {
-        return !error;
+        return !err;
     }
 
 }

@@ -121,6 +121,14 @@ public class Reply<T> extends RawReply {
         return new ErrorWithCode(errCode, message);
     }
 
+    public boolean isEmpty() {
+        return data == null || data.length == 0;
+    }
+
+    public boolean nonEmpty() {
+        return !isEmpty();
+    }
+
     public static Reply<?> ofUpdateResult(boolean recordUpdated) {
         if (recordUpdated)
             return OK;
@@ -217,6 +225,8 @@ public class Reply<T> extends RawReply {
     public static final Reply INTERNAL_ERROR = new Reply<>(Errors.INTERNAL_ERROR);
     @SuppressWarnings({"rawtypes"})
     public static final Reply AUTHENTICATION_FAILED = new Reply<>(Errors.AUTHENTICATION_FAILED);
+
+    public static final Reply<?> INVALID_TOKEN = new Reply<>(Errors.INVALID_TOKEN);
     @SuppressWarnings({"rawtypes"})
     public static final Reply BAD_FORMAT = new Reply<>(Errors.BAD_FORMAT);
     @SuppressWarnings({"rawtypes"})
@@ -231,5 +241,9 @@ public class Reply<T> extends RawReply {
     public static final Reply BAD_REQUEST = new Reply<>(Errors.BAD_REQUEST);
     @SuppressWarnings({"rawtypes"})
     public static final Reply INVALID_CONFIG = new Reply<>(Errors.INVALID_CONFIG);
+
     public static final Reply<?> TIMEOUT = new Reply<>(Errors.TIMEOUT);
+    public static final Reply<?> ILLEGAL_STATE = new Reply<>(Errors.ILLEGAL_STATE);
+    public static final Reply<?> EXECUTION_ERROR = new Reply<>(Errors.EXECUTION_ERROR);
+    public static final Reply<?> SERVICE_UNAVAILABLE = new Reply<>((Errors.SERVICE_UNAVAILABLE));
 }

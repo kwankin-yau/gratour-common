@@ -27,6 +27,10 @@ public class RawReply {
         this.message = message;
     }
 
+    public RawReply(ErrorWithCode errorWithCode) {
+        this(errorWithCode.getErrCode(), errorWithCode.getMessage());
+    }
+
     public int getErrCode() {
         return errCode;
     }
@@ -82,6 +86,10 @@ public class RawReply {
         return new RawReply(errCode, message);
     }
 
+    public static RawReply err(ErrorWithCode error) {
+        return new RawReply(error.getErrCode(), error.getMessage());
+    }
+
     public static RawReply invalidParamRaw(String paramName) {
         return new RawReply(Errors.INVALID_PARAM, Errors.errorMessageFormat(Errors.INVALID_PARAM, paramName));
     }
@@ -89,6 +97,7 @@ public class RawReply {
     public static final RawReply OK = new RawReply(Errors.OK);
     public static final RawReply INTERNAL_ERROR = new RawReply(Errors.INTERNAL_ERROR);
     public static final RawReply AUTHENTICATION_FAILED = new RawReply(Errors.AUTHENTICATION_FAILED);
+    public static final RawReply INVALID_TOKEN = new RawReply(Errors.INVALID_TOKEN);
     public static final RawReply BAD_FORMAT = new RawReply(Errors.BAD_FORMAT);
     public static final RawReply DUPLICATED_VALUE = new RawReply(Errors.DUPLICATED_VALUE);
     public static final RawReply RECORD_NOT_FOUND = new RawReply(Errors.RECORD_NOT_FOUND);
@@ -100,4 +109,6 @@ public class RawReply {
     public static final RawReply SERVICE_UNAVAILABLE = new RawReply(Errors.SERVICE_UNAVAILABLE);
     public static final RawReply TIMEOUT = new RawReply(Errors.TIMEOUT);
     public static final RawReply EXECUTION_ERROR = new RawReply(Errors.EXECUTION_ERROR);
+    public static final RawReply ILLEGAL_STATE = new RawReply(Errors.ILLEGAL_STATE);
+    public static final RawReply INVALID_CONFIG = new RawReply(Errors.INVALID_CONFIG);
 }

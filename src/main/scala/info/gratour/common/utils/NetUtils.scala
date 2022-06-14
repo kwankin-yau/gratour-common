@@ -7,10 +7,14 @@
  * ******************************************************************************/
 package info.gratour.common.utils
 
+import org.apache.commons.validator.routines.{DomainValidator, InetAddressValidator}
+import org.xbill.DNS.{ARecord, Address, Lookup, SimpleResolver}
+
 import java.net.{InetAddress, NetworkInterface, UnknownHostException}
+import java.nio.charset.{Charset, StandardCharsets}
+import java.security.MessageDigest
+import java.util.Base64
 import java.util.concurrent.ConcurrentHashMap
-import org.apache.commons.validator.routines.InetAddressValidator
-import org.xbill.DNS.{ARecord, Address, Lookup, Options, Record, SimpleResolver, Type}
 
 object NetUtils {
 
@@ -98,4 +102,60 @@ object NetUtils {
   }
 
   def isValidPortNum(port: Int): Boolean = port > 0 && port < 65536
+
+  final val DomainValidatorAllowLocal: DomainValidator = DomainValidator.getInstance(true)
+
+  def isValidDomain(domain: String): Boolean = {
+    DomainValidatorAllowLocal.isValid(domain)
+  }
+
+  def isValidIpOrDomain(ipOrDomain: String): Boolean = {
+    if (ipOrDomain == null || ipOrDomain.isEmpty)
+      false
+    else{
+      if (ipOrDomain.charAt(0).isDigit) {
+        var r = isValidIp(ipOrDomain)
+        if (!r)
+          r = isValidDomain(ipOrDomain)
+        r
+      } else {
+        var r = DomainValidatorAllowLocal.isValid(ipOrDomain)
+        if (!r)
+          r = isValidIp(ipOrDomain)
+        r
+      }
+
+    }
+  }
+
+  object HttpUtils {
+
+    def calcBasicAuthorization(username: String, password: String, charset: Charset): String = {
+      val bytes = (username + ":" + password).getBytes(charset)
+      "Basic " + Base64.getEncoder.encodeToString(bytes)
+    }
+
+    def calcBasicAuthorization(username: String, password: String): String = calcBasicAuthorization(username, password, StandardCharsets.US_ASCII)
+
+    def calcDigestAuthorization(username: String, password: String, realm: String, nonce: String, uri: String): String = {
+      // HA1 = MD5(username:realm:password)
+      // HA2 = MD5(method:digestURI)
+      // response = MD5(HA1:nonce:HA2)
+
+      val md5 = MessageDigest.getInstance("MD5")
+      val ha1 = StringUtils.hex(md5.digest((username + ':' + realm + ':' + password).getBytes))
+
+      md5.reset()
+      val ha2 = StringUtils.hex(md5.digest(("MD5:" + uri).getBytes))
+
+      md5.reset()
+      val response = StringUtils.hex(md5.digest((ha1 + ":" + nonce + ":" + ha2).getBytes))
+
+      // Authorization: Digest username="admin", realm="IP Camera(F3820)", nonce="f6a30073c0abd7372a8320e4ea6637bc", uri="rtsp://192.168.1.64:554/h264/ch1/main/av_stream", response="9e109a388b193cacc1bb0530b523af70"
+      s"Digest username=\"${username}\", realm=\"${realm}\", nonce=\"${nonce}\", uri=\"${uri}\", response=\"${response}\""
+    }
+  }
+
+
+
 }

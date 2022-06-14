@@ -181,6 +181,39 @@ object CommonUtils {
   }
 
   def touch(a: Any): Unit = {}
+
+
+  /**
+   * {{{
+   * for (i <- -6 to 6) {
+   *   val idx = wrapIndex(i, 3)
+   *   println(idx)
+   * }
+   * }}}
+   * will produce:
+   * {{{
+   * 0
+   * 1
+   * 2
+   * 0
+   * 1
+   * 2
+   * 0
+   * 1
+   * 2
+   * 0
+   * 1
+   * 2
+   * 0
+   * }}}
+   * @param idx
+   * @param max
+   * @return
+   */
+  def wrapIndex(idx: Int, max: Int): Int = {
+    ((idx % max) + max) % max
+  }
+
 }
 
 case class ByteArrayRange(arr: Array[Byte], offset: Int, length: Int)

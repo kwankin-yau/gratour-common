@@ -51,6 +51,10 @@ public class ErrorWithCode extends RuntimeException {
     public static ErrorWithCode NOT_ENOUGH_PRIV = new ErrorWithCode(Errors.NOT_ENOUGH_PRIV);
     public static ErrorWithCode RECORD_NOT_FOUND = new ErrorWithCode(Errors.RECORD_NOT_FOUND);
     public static ErrorWithCode EXECUTION_ERROR = new ErrorWithCode(Errors.EXECUTION_ERROR);
+    public static ErrorWithCode ILLEGAL_STATE = new ErrorWithCode(Errors.ILLEGAL_STATE);
+    public static ErrorWithCode INVALID_CONFIG = new ErrorWithCode(Errors.INVALID_CONFIG);
+    public static ErrorWithCode TIMEOUT = new ErrorWithCode(Errors.TIMEOUT);
+    public static ErrorWithCode SERVICE_UNAVAILABLE = new ErrorWithCode(Errors.SERVICE_UNAVAILABLE);
 
     public static ErrorWithCode invalidParam(String paramName) {
         return new ErrorWithCode(Errors.INVALID_PARAM, Errors.errorMessageFormat(Errors.INVALID_PARAM, paramName));

@@ -17,7 +17,7 @@ class LinesValidateResultReceiver extends AbstractValidateResultReceiver {
   override def invalidField(fieldName: String): Unit = {
     val msg = Errors.errorMessageFormat(Errors.INVALID_PARAM, fieldName)
     lines.add(msg)
-    error = true
+    err = true
   }
 
   def getLines: util.List[String] = lines
@@ -35,4 +35,8 @@ class LinesValidateResultReceiver extends AbstractValidateResultReceiver {
     sb.toString()
   }
 
+  override def error(message: String): Unit = {
+    lines.add(message)
+    this.err = true;
+  }
 }

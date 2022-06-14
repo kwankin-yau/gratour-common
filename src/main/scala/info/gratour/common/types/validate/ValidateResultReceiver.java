@@ -14,4 +14,5 @@ public interface ValidateResultReceiver {
     }
 
     void invalidField(String fieldName);
+    void error(String message);
 }

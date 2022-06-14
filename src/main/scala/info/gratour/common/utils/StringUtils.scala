@@ -135,6 +135,7 @@ object StringUtils {
   def arrayIndexOf(arr: Array[String], valueToFind: String): Int =
     arr.indexWhere(_ == valueToFind)
 
+  // Do not change to uppercase!!!
   private val DIGITS = Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f')
 
   def hex(b: Byte): String = {
@@ -145,7 +146,7 @@ object StringUtils {
   }
 
   /**
-   * 字节数组转HEX字符串。
+   * 字节数组转HEX字符串(小写)。
    *
    * @param bytes
    * 给定的字节数组。

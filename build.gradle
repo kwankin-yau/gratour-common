@@ -1,12 +1,11 @@
 plugins {
     id 'java-library'
     id 'scala'
-    id 'maven'
     id 'maven-publish'
 }
 
 group 'info.gratour.common'
-version '3.2.4'
+version '3.2.5'
 
 sourceCompatibility = 11
 
@@ -19,10 +18,10 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 
-    implementation 'org.scala-lang:scala-library:2.13.6'
-    implementation 'org.scala-lang:scala-reflect:2.13.6'
+    implementation 'org.scala-lang:scala-library:2.13.8'
+    implementation 'org.scala-lang:scala-reflect:2.13.8'
     implementation 'com.typesafe.scala-logging:scala-logging_2.13:3.9.4'
 
 
