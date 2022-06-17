@@ -3,6 +3,9 @@
 - `info.gratour.common.types.MovingAverageD`
 - `info.gratour.common.types.MovingAverageL`
 
+## Fixed
+- Add missing httpMethod parameter to `info.gratour.common.utils.NetUtils.HttpUtils.calcDigestAuthorization`
+
 ## Improvement
 - `info.gratour.common.types.rest.Reply.ILLEGAL_STATE` added
 - `info.gratour.common.types.rest.Reply.EXECUTION_ERROR` added

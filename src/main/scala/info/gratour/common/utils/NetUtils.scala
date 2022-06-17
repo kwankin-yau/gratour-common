@@ -4,7 +4,7 @@
  *
  * Contributors:
  * KwanKin Yau (alphax@vip.163.com) - initial API and implementation
- * ******************************************************************************/
+ * ***************************************************************************** */
 package info.gratour.common.utils
 
 import org.apache.commons.validator.routines.{DomainValidator, InetAddressValidator}
@@ -29,6 +29,7 @@ object NetUtils {
     Address.getByName(host)
 
   private final val resolverMap = new ConcurrentHashMap[String, SimpleResolver]()
+
   def shutdownDnsSelector(): Unit = {
     org.xbill.DNS.NioClient.close()
   }
@@ -37,8 +38,8 @@ object NetUtils {
   /**
    * Determines the IP address of a host using specified dns server
    *
-   * @param host  The hostname to look up
-   * @param dns the dns server
+   * @param host The hostname to look up
+   * @param dns  the dns server
    * @return The first matching IP address
    * @exception UnknownHostException The hostname does not have any addresses
    */
@@ -112,7 +113,7 @@ object NetUtils {
   def isValidIpOrDomain(ipOrDomain: String): Boolean = {
     if (ipOrDomain == null || ipOrDomain.isEmpty)
       false
-    else{
+    else {
       if (ipOrDomain.charAt(0).isDigit) {
         var r = isValidIp(ipOrDomain)
         if (!r)
@@ -137,25 +138,26 @@ object NetUtils {
 
     def calcBasicAuthorization(username: String, password: String): String = calcBasicAuthorization(username, password, StandardCharsets.US_ASCII)
 
-    def calcDigestAuthorization(username: String, password: String, realm: String, nonce: String, uri: String): String = {
+    def calcDigestAuthorization(username: String, password: String, realm: String, nonce: String, httpMethod: String, digestUri: String): String = {
       // HA1 = MD5(username:realm:password)
-      // HA2 = MD5(method:digestURI)
+      // HA2 = MD5(httpMethod:digestURI)
       // response = MD5(HA1:nonce:HA2)
 
       val md5 = MessageDigest.getInstance("MD5")
-      val ha1 = StringUtils.hex(md5.digest((username + ':' + realm + ':' + password).getBytes))
+      val ha1 = StringUtils.hex(md5.digest((username + ":" + realm + ":" + password).getBytes))
 
       md5.reset()
-      val ha2 = StringUtils.hex(md5.digest(("MD5:" + uri).getBytes))
+      val ha2 = StringUtils.hex(md5.digest((httpMethod + ":" + digestUri).getBytes))
 
       md5.reset()
       val response = StringUtils.hex(md5.digest((ha1 + ":" + nonce + ":" + ha2).getBytes))
 
       // Authorization: Digest username="admin", realm="IP Camera(F3820)", nonce="f6a30073c0abd7372a8320e4ea6637bc", uri="rtsp://192.168.1.64:554/h264/ch1/main/av_stream", response="9e109a388b193cacc1bb0530b523af70"
-      s"Digest username=\"${username}\", realm=\"${realm}\", nonce=\"${nonce}\", uri=\"${uri}\", response=\"${response}\""
+      // Authorization: Digest username="admin", realm="IP Camera(F3820)", nonce="53c33f2ca25ae2a17df0da1625a06901", uri="rtsp://192.168.1.64:554/h264/ch1/main/av_stream", response="e7bafcb005bb3c386f4febcc8828007b"
+      s"Digest username=\"${username}\", realm=\"${realm}\", nonce=\"${nonce}\", uri=\"${digestUri}\", response=\"${response}\""
     }
-  }
 
+  }
 
 
 }
