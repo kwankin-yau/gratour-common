@@ -7,6 +7,7 @@
  * ***************************************************************************** */
 package info.gratour.common.utils
 
+import info.gratour.common.error.ErrorWithCode
 import org.apache.commons.validator.routines.{DomainValidator, InetAddressValidator}
 import org.xbill.DNS.{ARecord, Address, Lookup, SimpleResolver}
 
@@ -155,6 +156,39 @@ object NetUtils {
       // Authorization: Digest username="admin", realm="IP Camera(F3820)", nonce="f6a30073c0abd7372a8320e4ea6637bc", uri="rtsp://192.168.1.64:554/h264/ch1/main/av_stream", response="9e109a388b193cacc1bb0530b523af70"
       // Authorization: Digest username="admin", realm="IP Camera(F3820)", nonce="53c33f2ca25ae2a17df0da1625a06901", uri="rtsp://192.168.1.64:554/h264/ch1/main/av_stream", response="e7bafcb005bb3c386f4febcc8828007b"
       s"Digest username=\"${username}\", realm=\"${realm}\", nonce=\"${nonce}\", uri=\"${digestUri}\", response=\"${response}\""
+    }
+
+    case class BasicHttpAuthorization(username: String, password: String)
+
+    case class HttpAuthorization(scheme: String, params: Array[String]) {
+      def isBasic: Boolean = scheme.toLowerCase == "basic"
+
+      def isDigest: Boolean = scheme.toLowerCase == "digest"
+
+      def asBasic: BasicHttpAuthorization = {
+        if (!isBasic)
+          throw ErrorWithCode.internalError("Non Basic authorization")
+
+        val s = params(0)
+        val concatenation = new String(Base64.getDecoder.decode(s), StandardCharsets.US_ASCII)
+        val p = concatenation.indexOf(':')
+        if (p <= 0)
+          throw ErrorWithCode.invalidParam("authorization")
+
+        BasicHttpAuthorization(concatenation.substring(0, p), concatenation.substring(p + 1))
+      }
+    }
+
+    def parseAuthorization(authorization: String): HttpAuthorization = {
+      val a = authorization.trim
+      val p = a.indexOf(' ')
+      if (p <= 0)
+        throw ErrorWithCode.invalidParam("authorization")
+
+      val scheme = a.substring(0, p)
+      val s2 = a.substring(p + 1)
+      val params = s2.split(",")
+      HttpAuthorization(scheme, params)
     }
 
   }

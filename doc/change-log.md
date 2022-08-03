@@ -1,3 +1,16 @@
+# 3.2.6 - [2022-07-20]
+## Improvement
+- `info.gratour.common.utils.NetUtils.HttpUtils.parseAuthorization` added
+- `info.gratour.common.types.rest.Pagination.DEFAULT_PAGE, DEFAULT_LIMIT, MAX_LIMIT, check()` added
+- `info.gratour.common.utils.CachedIpResolver` added
+- `info.gratour.common.types.DateTimeFmt` added
+- `info.gratour.common.utils.DateTimeUtils`:
+  - `millisToConvenientDateTimeString` added
+  - `millisToConvenientDateTimeStringWithMillis` added
+  - `dateTimeFmtOf` added
+  - `millisToString` added
+  - `parseDateTime(Long, DateTimeFmt)` added
+
 # 3.2.5 - [2022-03-15]
 ## Added
 - `info.gratour.common.types.MovingAverageD`

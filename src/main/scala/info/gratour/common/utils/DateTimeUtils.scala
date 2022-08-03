@@ -1,5 +1,8 @@
 package info.gratour.common.utils
 
+import info.gratour.common.error.{ErrorWithCode, Errors}
+import info.gratour.common.types.DateTimeFmt
+
 import java.time.format.DateTimeFormatter
 import java.time.{Clock, Duration, Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId, ZoneOffset}
 import java.util.Locale
@@ -126,6 +129,23 @@ object DateTimeUtils {
   def epochMillisToBeijingOffsetDateTimeString(epochMillis: Long): String =
     Instant.ofEpochMilli(epochMillis).atOffset(ZONE_OFFSET_BEIJING).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 
+  def millisToConvenientDateTimeString(epochMillis: Long): String =
+    Instant.ofEpochMilli(epochMillis).atOffset(defaultZoneOffset).format(DateTimeUtils.CONVENIENT_DATETIME_FORMATTER)
+
+  def millisToConvenientDateTimeStringWithMillis(epochMillis: Long): String =
+    Instant.ofEpochMilli(epochMillis).atOffset(defaultZoneOffset).format(DateTimeUtils.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS)
+
+  def dateTimeFmtOf(dateTimeStr: String): DateTimeFmt = {
+    if (dateTimeStr.contains('T'))
+      DateTimeFmt.ISO_OFFSET_DATE_TIME
+    else {
+      if (dateTimeStr.contains('.'))
+        DateTimeFmt.CONVENIENT_DATE_TIME_WITH_MILLIS
+      else
+        DateTimeFmt.CONVENIENT_DATE_TIME
+    }
+  }
+
   def parseDateTime(value: String): OffsetDateTime =
     if (value.contains('T'))
       OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
@@ -136,8 +156,37 @@ object DateTimeUtils {
         LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER).atOffset(DateTimeUtils.defaultZoneOffset)
     }
 
+  def parseDateTime(value: String, fmt: DateTimeFmt): OffsetDateTime =
+    fmt match {
+      case DateTimeFmt.ISO_OFFSET_DATE_TIME =>
+        OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+      case DateTimeFmt.CONVENIENT_DATE_TIME =>
+        LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER_WITH_MILLIS).atOffset(DateTimeUtils.defaultZoneOffset)
+
+      case DateTimeFmt.CONVENIENT_DATE_TIME_WITH_MILLIS =>
+        LocalDateTime.parse(value, DateTimeUtils.CONVENIENT_DATETIME_FORMATTER).atOffset(DateTimeUtils.defaultZoneOffset)
+      case _ =>
+        throw new ErrorWithCode(Errors.INTERNAL_ERROR, s"Unhandled DateTimeFmt: $fmt")
+    }
+
   def stringToMillis(value: String): Long =
     parseDateTime(value).toInstant.toEpochMilli
+
+  def millisToString(millis: Long, fmt: DateTimeFmt): String =
+    fmt match {
+      case DateTimeFmt.ISO_OFFSET_DATE_TIME =>
+        millisToOffsetDateTimeString(millis)
+
+      case DateTimeFmt.CONVENIENT_DATE_TIME =>
+        millisToOffsetDateTimeString(millis)
+
+      case DateTimeFmt.CONVENIENT_DATE_TIME_WITH_MILLIS =>
+        millisToConvenientDateTimeStringWithMillis(millis)
+
+      case _ =>
+        throw new ErrorWithCode(Errors.INTERNAL_ERROR, s"Unhandled DateTimeFmt: $fmt")
+    }
 
   def tryStringToDate(s: String): LocalDate = {
     if (s != null) {

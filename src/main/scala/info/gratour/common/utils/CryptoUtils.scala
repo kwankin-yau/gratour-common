@@ -34,7 +34,7 @@ object CryptoUtils {
 
   def md5Base64(data: Array[Byte]): String = {
     val md = MessageDigest.getInstance("MD5")
-    Base64.getMimeEncoder.encodeToString(md.digest(data))
+    Base64.getEncoder.encodeToString(md.digest(data))
   }
 
   /**
